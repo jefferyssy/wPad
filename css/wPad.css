@@ -1,0 +1,70 @@
+.wPad-wrap ul, .wPad-wrap li {
+	list-style: none;
+	margin: 0;
+	padding: 0
+}
+
+.wPad-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+	box-shadow: 0 0 2px 2px #ececec;
+}
+
+.wPad-wrap .toolbar-wrap {
+	box-shadow: 0 0 2px 2px #ececec;
+	position: absolute;
+	border-radius: 5px;
+	background: rgba(0, 0, 0, 0.3);
+	cursor: move;
+	top: 0;
+	left: 0;
+	z-index: 10000;
+}
+
+.wPad-wrap .canvas-wrap{
+	width: 100%;
+	height: 100%;
+}
+
+.wPad-wrap .toolbar-wrap .toolbar-item-wrap {
+	border: solid 1px #000;
+	width: 30px;
+	height: 30px;
+	border-radius: 5px;
+	margin: 2px;
+	cursor: pointer;
+}
+
+.wPad-layout1 .toolbar-wrap {
+	padding: 0 10px;
+}
+
+.wPad-layout2 .toolbar-wrap {
+	padding: 10px 0;
+}
+
+.wPad-layout1 .toolbar-wrap .toolbar-item-wrap {
+	float: left;
+}
+
+.wPad-wrap .canvas-wrap .can {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.wPad-wrap .canvas-wrap .main-can {
+	cursor: crosshair;
+}
+
+
+
+
+
+.wPad-wrap .toolbar-wrap .toolbar-item-wrap .iconfont{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}

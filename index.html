@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>whiteboard</title>
+	<link rel="stylesheet" type="text/css" href="./css/wPad.css">
+	<style type="text/css">
+		body {
+			width: 800px;
+    		height: 500px;
+		}
+
+		.pad-wrap1 {
+			width: 1000px;
+			float: left;
+			height: 600px;
+		}
+
+		.pad-wrap2 {
+			width: 1000px;
+			float: left;
+			height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<div id="pad1" class="pad-wrap1"></div>
+	<div id="pad2" class="pad-wrap2"></div>
+</body>
+<script type="text/javascript" src="./js/line.js"></script>
+<script type="text/javascript" src="./js/arrow.js"></script>
+<script type="text/javascript" src="./js/circle-stroke.js"></script>
+<script type="text/javascript" src="./js/circle.js"></script>
+<script type="text/javascript" src="./js/color.js"></script>
+<script type="text/javascript" src="./js/ellipes-stroke.js"></script>
+<script type="text/javascript" src="./js/ellipes.js"></script>
+<script type="text/javascript" src="./js/eraser.js"></script>
+<script type="text/javascript" src="./js/export.js"></script>
+<script type="text/javascript" src="./js/eye-dropper.js"></script>
+<script type="text/javascript" src="./js/flood-fill.js"></script>
+<script type="text/javascript" src="./js/import.js"></script>
+<script type="text/javascript" src="./js/pen.js"></script>
+<script type="text/javascript" src="./js/rect-stroke.js"></script>
+<script type="text/javascript" src="./js/scissors.js"></script>
+<script type="text/javascript" src="./js/text.js"></script>
+<script type="text/javascript" src="./js/undo.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
+<script type="text/javascript">
+	var params1 = {
+		name: "pad1",
+		wrap: document.getElementById("pad1"),
+		layout: 1,
+		draw: function(data) {
+			pad2.draw(data);
+		},
+		clear: function() {
+			pad2.clear();
+		},
+		done: function() {}
+	};
+
+	var params2 = {
+		name: "pad2",
+		wrap: document.getElementById("pad2"),
+		layout: 1,
+		/*toolbars: ["pen"],*/
+		draw: function(data) {
+			pad1.draw(data);
+		},
+		clear: function() {},
+		done: function() {}
+	};
+
+	var pad1 = wPad.init(params1);
+	var pad2 = wPad.init(params2);
+</script>
+</html>
