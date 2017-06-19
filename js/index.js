@@ -52,7 +52,7 @@
 		this.name = params.name;
 		var self = this, _module = {};
 		this.getParams = function() { return params; };
-		this.getModule = function(name) {return !name?_module:_module[name];};
+		this.getModule = function(name) {return !name ? _module : _module[name];};
 		buildPad.call(this, function(name, m) {_module[name] = m;});
 	}
 
