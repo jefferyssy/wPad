@@ -14,9 +14,9 @@
 		fn.call(Object.create(null), this);
 	}
 	var config = {
-		x: 20,
-		y: 20
-	}
+		x: 10,
+		y: 10
+	};
 	EllipesStroke.prototype = {
 		constructor: EllipesStroke,
 		mousedown: function () {
@@ -70,18 +70,18 @@
 				case "begin":
 					break;
 				case "join":
-					Math.abs(end_X - start_X) > Math.abs(end_Y - start_Y) ? (config.x = config.x + 1, config.y = config.y - 1) : (config.x = config.x - 1, config.y = config.y + 1);
+					Math.abs(end_X - start_X) > Math.abs(end_Y - start_Y) ? (config.x = config.x + 1) : (config.y = config.y + 1);
 					EllipseTwo(bufferCtx, end_X - (end_X - start_X) / 2, end_Y - (end_Y - start_Y) / 2, config.x, config.y);
 					break;
 				default:
-					Math.abs(end_X - start_X) > Math.abs(end_Y - start_Y) ? (config.x = config.x + 1, config.y = config.y - 1) : (config.x = config.x - 1, config.y = config.y + 1);
+					Math.abs(end_X - start_X) > Math.abs(end_Y - start_Y) ? (config.x = config.x + 1) : (config.y = config.y + 1);
 					EllipseTwo(mainCtx, end_X - (end_X - start_X) / 2, end_Y - (end_Y - start_Y) / 2, config.x, config.y);
 			}
 			function EllipseTwo(context, x, y, a, b) {
+                var r = (a > b) ? a : b;
+                var ratioX = a / r;
+                var ratioY = b / r;
 				context.save();
-				var r = (a > b) ? a : b;
-				var ratioX = a / r;
-				var ratioY = b / r;
 				context.scale(ratioX, ratioY);
 				context.beginPath();
 				context.lineWidth = 2;
@@ -90,6 +90,8 @@
 				context.closePath();
 				context.restore();
 				context.stroke();
+				console.log('圆心：'+x / ratioX+","+y / ratioY);
+                console.log('半径：'+ratioX+","+ratioY);
 			}
 		}
 	};
