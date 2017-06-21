@@ -65,7 +65,7 @@
 				start_Y = _data[0][1],
 				end_X = _data[1][0],
 				end_Y = _data[1][1];
-
+            bufferCanvas.width = bufferCanvas.width;
 			switch (pointType) {
 				case "begin":
 					break;
@@ -78,7 +78,7 @@
 					EllipseTwo(mainCtx, end_X - (end_X - start_X) / 2, end_Y - (end_Y - start_Y) / 2, config.x, config.y);
 			}
 			function EllipseTwo(context, x, y, a, b) {
-				// context.save();
+				context.save();
 				var r = (a > b) ? a : b;
 				var ratioX = a / r;
 				var ratioY = b / r;
@@ -90,7 +90,6 @@
 				context.closePath();
 				context.restore();
 				context.stroke();
-				console.log(1111111);
 			}
 		}
 	};
