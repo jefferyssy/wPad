@@ -22,10 +22,10 @@
 			name: "pad",
 			wrap: document.body,
 			layout: 1,
-			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesStroke", "rect", "rectstroke", "eraser", "floodFill", "eyeDropper", "text", "scissors", "import", "export", "clear", "undo", "color", "save"],
+			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "floodFill", "eyeDropper", "text", "scissors", "import", "export", "clear", "undo", "color", "save"],
 			done: function() {}
 		},
-		titles = {line:"直线", arrow:"箭头", pen:"画笔", circle:"实心圆", ellipes:"实心椭圆", circlestroke:"空心圆", ellipesStroke:"空心椭圆", rect:"实心矩形", rectstroke:"空心矩形", eraser:"橡皮擦", floodFill:"填充", eyeDropper:"取色工具", text:"文本", scissors:"截图", import:"插入图片", export:"导出", clear:"清除", undo:"撤销", color:"颜色", save:"保存"};
+		titles = {line:"直线", arrow:"箭头", pen:"画笔", circle:"实心圆", ellipes:"实心椭圆", circlestroke:"空心圆", ellipesstroke:"空心椭圆", rect:"实心矩形", rectstroke:"空心矩形", eraser:"橡皮擦", floodFill:"填充", eyeDropper:"取色工具", text:"文本", scissors:"截图", import:"插入图片", export:"导出", clear:"清除", undo:"撤销", color:"颜色", save:"保存"};
 
 	vm.module = vm.module || {};
 	window.vm = vm;
