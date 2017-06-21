@@ -36,7 +36,6 @@
 						<canvas class='can main-can' width='$MAINCANVASWIDTH$' height='$MAIINCANVASHEIGHT$'>浏览器版本太低，暂不支持此功能，请更新！</canvas>\
 					</div>\
 				</div>";
-
 	var toolbarTpl = "<li class='toolbar-item-wrap'><i item='$ITEM$' class='iconfont icon-$CLASS$' title='$TITLE$'></i></li>";
 
 	var addEvent = window.addEventListener?function(target, type, fn, use) {

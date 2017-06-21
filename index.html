@@ -8,6 +8,7 @@
 		body {
 			width: 800px;
     		height: 500px;
+			position: relative;
 		}
 
 		.pad-wrap1 {
@@ -21,11 +22,19 @@
 			float: left;
 			height: 400px;
 		}
+		input{
+            position: absolute;
+            border:1px dotted #e4e4e4;
+            outline: none;
+			top: -10000px;
+			left: -10000px;
+        }
 	</style>
 </head>
 <body>
 	<div id="pad1" class="pad-wrap1"></div>
 	<div id="pad2" class="pad-wrap2"></div>
+	<input type="text" id='panInput'>
 </body>
 <script type="text/javascript" src="./js/line.js"></script>
 <script type="text/javascript" src="./js/arrow.js"></script>
