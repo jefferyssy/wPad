@@ -61,19 +61,15 @@
 				start_X = _data[0],
 				start_Y = _data[1];
 
-			bufferCanvas.width = bufferCanvas.width;
-			console.log(JSON.stringify(data))
+			// bufferCanvas.width = bufferCanvas.width;
 			switch (pointType) {
 				case "begin":
 					x = start_X,
-						y = start_Y;
+					y = start_Y;
 					document.getElementsByTagName('input')[0].style.top = y + 'px';
 					document.getElementsByTagName('input')[0].style.left = x + 'px';
-					
-					console.log(bufferCtx)
 					break;
 				case "join":
-					console.log(bufferCtx)
 					break;
 				default:
 					
@@ -87,10 +83,10 @@
 				}
 			});
 			function drawText(text) {
-				bufferCtx.font = "12px serif";
-				bufferCtx.fillText(text, x, y);
-				// mainCtx.font = "12px serif";
-				// mainCtx.fillText(text, x, y);
+				document.getElementsByClassName('buffer-can')[0].getContext("2d").font = "12px serif";
+				document.getElementsByClassName('buffer-can')[0].getContext("2d").fillText(text, x, y);
+				document.getElementsByClassName('buffer-can')[1].getContext("2d").font = "12px serif";
+				document.getElementsByClassName('buffer-can')[1].getContext("2d").fillText(text, x, y);
 				document.getElementById('panInput').value = '';
 				document.getElementsByTagName('input')[0].style.top = '-10000px';
 				document.getElementsByTagName('input')[0].style.left = '-10000px';
