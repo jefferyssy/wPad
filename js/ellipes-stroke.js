@@ -13,10 +13,7 @@
 		this.name = "EllipesStroke";
 		fn.call(Object.create(null), this);
 	}
-	var config = {
-		x: 10,
-		y: 10
-	};
+
 	EllipesStroke.prototype = {
 		constructor: EllipesStroke,
 		mousedown: function () {
@@ -53,6 +50,8 @@
 			params.draw.call(this, { item: this.item.name, pointType: "end", data: [[this.item.startX, this.item.startY], [x, y]], width: bufferCanvas.width, height: bufferCanvas.height, time: Date.now() });
 		},
 		draw: function (data) {
+
+			console.log(data);
 			var pointType = data.pointType,
 				mainCanvas = this.getMainCanvas(),
 				bufferCanvas = this.getBufferCanvas(),
@@ -70,28 +69,38 @@
 				case "begin":
 					break;
 				case "join":
-					Math.abs(end_X - start_X) > Math.abs(end_Y - start_Y) ? (config.x = config.x + 1) : (config.y = config.y + 1);
-					EllipseTwo(bufferCtx, end_X - (end_X - start_X) / 2, end_Y - (end_Y - start_Y) / 2, config.x, config.y);
+					Ellipse(bufferCtx, start_X, start_Y, Math.abs(end_X-start_X), Math.abs(end_Y - start_Y))
 					break;
 				default:
-					Math.abs(end_X - start_X) > Math.abs(end_Y - start_Y) ? (config.x = config.x + 1) : (config.y = config.y + 1);
-					EllipseTwo(mainCtx, end_X - (end_X - start_X) / 2, end_Y - (end_Y - start_Y) / 2, config.x, config.y);
+					Ellipse(mainCtx, start_X, start_Y, Math.abs(end_X-start_X), Math.abs(end_Y - start_Y))
 			}
-			function EllipseTwo(context, x, y, a, b) {
-                var r = (a > b) ? a : b;
-                var ratioX = a / r;
-                var ratioY = b / r;
+
+
+			/**
+			 * 画椭圆
+			 * 
+			 * @param {obj} context 
+			 * @param {int} x 起点X轴坐标 
+			 * @param {int} y 起点Y轴坐标 
+			 * @param {int} a 轴半距离
+			 * @param {int} b 轴半距离
+			 */
+			function Ellipse(context, x, y, a, b) {
+				var k = 0.5522848,
+				ox = k * a,
+				oy = k * b;
+
 				context.save();
-				context.scale(ratioX, ratioY);
+				context.translate(x, y);
 				context.beginPath();
-				context.lineWidth = 2;
-				context.strokeStyle = '#000';
-				context.arc(x / ratioX, y / ratioY, r, 0, 2 * Math.PI, false);
+				context.moveTo(0, b);
+				context.bezierCurveTo(ox, b, a, oy, a, 0);
+				context.bezierCurveTo(a, -oy, ox, -b, 0, -b);
+				context.bezierCurveTo(-ox, -b, -a, -oy, -a, 0);
+				context.bezierCurveTo(-a, oy, -ox, b, 0, b);
 				context.closePath();
-				context.restore();
 				context.stroke();
-				console.log('圆心：'+x / ratioX+","+y / ratioY);
-                console.log('半径：'+ratioX+","+ratioY);
+				context.restore();
 			}
 		}
 	};
