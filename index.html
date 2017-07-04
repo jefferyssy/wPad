@@ -8,30 +8,41 @@
 		body {
 			width: 800px;
     		height: 500px;
+			position: relative;
 		}
 
 		.pad-wrap1 {
 			width: 1000px;
 			float: left;
-			height: 600px;
+			height: 400px;
 		}
 
 		.pad-wrap2 {
 			width: 1000px;
 			float: left;
-			height: 300px;
+			height: 400px;
 		}
+		input{
+            position: absolute;
+            border:1px dotted #e4e4e4;
+            outline: none;
+			top: -10000px;
+			left: -10000px;
+        }
 	</style>
 </head>
 <body>
 	<div id="pad1" class="pad-wrap1"></div>
 	<div id="pad2" class="pad-wrap2"></div>
+	<input type="text" id='panInput'>
 </body>
+<script type="text/javascript" src="./js/store.js"></script>
 <script type="text/javascript" src="./js/line.js"></script>
 <script type="text/javascript" src="./js/arrow.js"></script>
 <script type="text/javascript" src="./js/circle-stroke.js"></script>
 <script type="text/javascript" src="./js/circle.js"></script>
 <script type="text/javascript" src="./js/color.js"></script>
+<script type="text/javascript" src="./js/clear.js"></script>
 <script type="text/javascript" src="./js/ellipes-stroke.js"></script>
 <script type="text/javascript" src="./js/ellipes.js"></script>
 <script type="text/javascript" src="./js/eraser.js"></script>
@@ -40,6 +51,7 @@
 <script type="text/javascript" src="./js/flood-fill.js"></script>
 <script type="text/javascript" src="./js/import.js"></script>
 <script type="text/javascript" src="./js/pen.js"></script>
+<script type="text/javascript" src="./js/rect.js"></script>
 <script type="text/javascript" src="./js/rect-stroke.js"></script>
 <script type="text/javascript" src="./js/scissors.js"></script>
 <script type="text/javascript" src="./js/text.js"></script>
