@@ -13,15 +13,17 @@
 //*****************************************************
 //*****************************************************
 //*****************************************************
-;(function() {
+;(function(undefined) {
 	var vm = window.vm || {},
 		toString = Object.prototype.toString,
 		imgNode = document.createElement("IMG"),
-		ss = sessionStorage,
+		ss = window.sessionStorage,
+		ls = window.localStorage,
 		defaultConfig = {
 			name: "pad",
 			wrap: document.body,
-			layout: 1,
+			layout: "left-top-horizontal",
+			openLocalCache: true,
 			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circleStroke", "ellipesStroke", "rect", "rectStroke", "eraser", "floodFill", "eyeDropper", "text", "scissors", "import", "export", "clear", "undo", "color", "save"],
 			done: function() {}
 		},
@@ -29,7 +31,7 @@
 
 	vm.module = vm.module || {};
 	window.vm = vm;
-	var tpl = "	<div class='wPad-wrap wPad-layout$NUMBER$'>\
+	var tpl = "	<div class='wPad-wrap $LAYOUT$'>\
 					<ul class='toolbar-wrap'>$TOOLBARS$</ul>\
 					<div class='canvas-wrap'>\
 						<canvas class='can buffer-can' width='$MAINCANVASWIDTH$' height='$MAIINCANVASHEIGHT$'></canvas>\
@@ -59,6 +61,7 @@
 	WPad.prototype = {
 		constructor: WPad,
 		draw: function(data) {
+			console.log(data);
 			var tool = this.getModule(data.item.toLowerCase());
 			tool && tool.draw.call(this, data);
 		},
@@ -99,11 +102,14 @@
 						count++;
 						count>=len && "[object Function]"===toString.call(params.done) && params.done.call(self);
 					});
+				} else {
+					count++;
+					count>=len && "[object Function]"===toString.call(params.done) && params.done.call(self);
 				}
 			} while(++i<len)
 		}
 
-		var padStr = tpl.replace(/\$TOOLBARS\$/g, str).replace(/\$NUMBER\$/g, layout)
+		var padStr = tpl.replace(/\$TOOLBARS\$/g, str).replace(/\$LAYOUT\$/g, layout)
 						.replace(/\$MAINCANVASWIDTH\$/g, wrap.clientWidth)
 						.replace(/\$MAIINCANVASHEIGHT\$/g, wrap.clientHeight);
 		wrap.innerHTML = padStr;
@@ -187,7 +193,7 @@
 					}
 				} while(++i<len)
 			}
-		} else /*("[object Object]"===toString.call(copyData))*/ {
+		} else {
 			for(var key in copyData) {
 				var d = copyData[key];
 
@@ -201,4 +207,4 @@
 			}
 		}
 	}
-}(void(0)));
+}());

@@ -37,15 +37,15 @@
 	cursor: pointer;
 }
 
-.wPad-layout1 .toolbar-wrap {
+.left-top-horizontal .toolbar-wrap {
 	padding: 0 10px;
 }
 
-.wPad-layout2 .toolbar-wrap {
+.left-top-vertical .toolbar-wrap {
 	padding: 10px 0;
 }
 
-.wPad-layout1 .toolbar-wrap .toolbar-item-wrap {
+.left-top-horizontal .toolbar-wrap .toolbar-item-wrap {
 	float: left;
 }
 

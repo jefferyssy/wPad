@@ -61,7 +61,8 @@
 	var params1 = {
 		name: "pad1",
 		wrap: document.getElementById("pad1"),
-		layout: 1,
+		openLocalBuffer: true,
+		layout: "left-top-horizontal",
 		draw: function(data) {
 			pad2.draw(data);
 		},
@@ -74,7 +75,8 @@
 	var params2 = {
 		name: "pad2",
 		wrap: document.getElementById("pad2"),
-		layout: 1,
+		layout: "left-top-horizontal",
+		openLocalBuffer: true,
 		/*toolbars: ["pen"],*/
 		draw: function(data) {
 			pad1.draw(data);
