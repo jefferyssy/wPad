@@ -15,6 +15,7 @@
 //*****************************************************
 ;(function(undefined) {
 	var vm = window.vm || {},
+		trackCache = {},
 		toString = Object.prototype.toString,
 		imgNode = document.createElement("IMG"),
 		ss = window.sessionStorage,
@@ -54,20 +55,34 @@
 		this.name = params.name;
 		var self = this, _module = {};
 		this.getParams = function() { return params; };
-		this.getModule = function(name) {return !name ? _module : _module[name];};
-		buildPad.call(this, function(name, m) {_module[name] = m;});
+		this.getModule = function(name) { return !name?_module:_module[name]; };
+		this.getCache = function() { return trackCache[self.name]; };
+		trackCache[self.name] = [];
+		buildPad.call(this, function(name, m) { _module[name] = m; });
 	}
 
 	WPad.prototype = {
 		constructor: WPad,
-		draw: function(data) {
-			console.log(data);
-			var tool = this.getModule(data.item.toLowerCase());
+		draw: function(data, isCache) {
+			if(!data) return;
+			var self = this,
+				toolName = data.item.toLowerCase(),
+				tool = this.getModule(toolName);
 			tool && tool.draw.call(this, data);
+			if(-1!==["pen"].indexOf(toolName)) {
+				!isCache && trackCache[self.name].push(data);
+			} else {
+				!isCache && "end"===data.pointType.toLowerCase() && trackCache[self.name].push(data);
+			}
 		},
 		clear: function() {
-			var getMainCanvas = this.getMainCanvas();
-			getMainCanvas.width = getMainCanvas.width;
+			var self = this,
+				mainCanvas = this.getMainCanvas(),
+				mainCtx = mainCanvas.getContext("2d");
+			mainCanvas.width = mainCanvas.width;
+			trackCache[self.name] = [];
+			mainCtx.fillStyle = "#fff";
+			mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
 		}
 	};
 
@@ -90,7 +105,7 @@
 			item = ss.getItem(self.name) || "line",
 			str = "";
 
-		var i = 0, len = toolbars.length, count = 0;
+		var i = 0, count = 0, len = toolbars.length;
 		if(len>i) {
 			do {
 				var toolbar = toolbars[i];
@@ -116,7 +131,11 @@
 		
 		var toolbar = wrap.getElementsByClassName("toolbar-wrap")[0],
 			mainCanvas = wrap.getElementsByClassName("main-can")[0],
-			bufferCanvas = wrap.getElementsByClassName("buffer-can")[0];
+			bufferCanvas = wrap.getElementsByClassName("buffer-can")[0],
+			mainCtx = mainCanvas.getContext("2d");
+
+		mainCtx.fillStyle = "#fff";
+		mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
 
 		addEvent(mainCanvas, "mousedown", function() {
 			self.item.mousedown && self.item.mousedown.apply(self, [].slice.call(arguments, 0));
@@ -175,6 +194,14 @@
 			self.item = tool;
 			mainCanvas.setAttribute("item", tool.name);
 		}
+
+		var _trackCache = JSON.parse(ls.getItem(self.name) || "[]");
+		trackCache[self.name] = _trackCache;
+		var i = 0, len = _trackCache.length;
+		do { 
+			var data = _trackCache[i];
+			data && self.draw(data, true); 
+		} while(++i<len);
 	}
 
 	function copy(copyData, receiveData) {
@@ -207,4 +234,10 @@
 			}
 		}
 	}
+
+	addEvent(window, "beforeunload", function() {
+		for(var padName in trackCache) {
+			ls.setItem(padName, JSON.stringify(trackCache[padName]));
+		}
+	});
 }());
