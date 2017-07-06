@@ -6,7 +6,6 @@ var store = {
         if (this.undoList[this.undoList.length - 1] != canvas.toDataURL()) {
             this.undoList.push(canvas.toDataURL());
         }
-        console.log(this.undoList)
     },
     undo: function (ctx) {
         this.changeStatus(ctx);

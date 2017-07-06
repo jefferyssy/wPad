@@ -73,6 +73,7 @@
 			} else {
 				!isCache && "end"===data.pointType.toLowerCase() && trackCache[self.name].push(data);
 			}
+			console.log(trackCache)
 		},
 		clear: function() {
 			var self = this,
