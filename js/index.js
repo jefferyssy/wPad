@@ -112,6 +112,7 @@
 			mainCanvas = wrap.getElementsByClassName("main-can")[0],
 			bufferCanvas = wrap.getElementsByClassName("buffer-can")[0];
 
+			store.save(mainCanvas);
 		addEvent(mainCanvas, "mousedown", function() {
 			self.item.mousedown && self.item.mousedown.apply(self, [].slice.call(arguments, 0));
 		});
@@ -143,6 +144,9 @@
 						break;
 					case "export":
 						tool.export.call(self);
+						break;
+					case "undo":
+						store.undo(mainCanvas.getContext('2d'));
 						break;
 					default:
 						self.item = tool;

@@ -74,6 +74,7 @@
 					break;
 				default:
 					mainCtx.strokeRect(start_X, start_Y, end_X - start_X, end_Y - start_Y);
+					store.save(mainCanvas)
 			}
 		}
 	};

@@ -80,6 +80,7 @@
 				mainCtx.lineTo((data[1][0]*xs)>>0, (data[1][1]*ys)>>0);
 				mainCtx.stroke();
 				mainCtx.save();
+				store.save(mainCanvas)
 			}
 		}
 	};

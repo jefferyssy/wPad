@@ -82,7 +82,8 @@
 					// mainCtx.closePath();
 					// mainCtx.stroke();
                     Circle(mainCtx,end_X-(end_X-start_X)/2, end_Y-(end_Y-start_Y)/2, Math.sqrt((Math.pow((end_X-start_X),2) + Math.pow((end_Y-start_Y),2)))/2 );
-			}
+					store.save(mainCanvas)
+		}
             function Circle(context, x, y, r){
                 context.beginPath();
                 context.arc(x, y, r , 0, Math.PI*2, true);

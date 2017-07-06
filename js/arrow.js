@@ -73,6 +73,7 @@
 					break;
 				default:
 					drawArrow(mainCtx,start_X,start_Y,end_X,end_Y,3,'black');
+					store.save(mainCanvas)
 			}
 
 			function drawArrow(ctx, fromx, fromy, tox, toy, arrowWidth, color) {

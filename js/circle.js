@@ -84,6 +84,7 @@
 					mainCtx.stroke();
 					mainCtx.fillStyle = '#000';
     				mainCtx.fill();	
+					store.save(mainCanvas)
 			}
 		}
 	};

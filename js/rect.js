@@ -76,6 +76,7 @@
 				default:
 					mainCtx.fillRect(start_X, start_Y, end_X - start_X, end_Y - start_Y);
 					mainCtx.save();
+					store.save(mainCanvas)
 			}
 		}
 	};

@@ -72,7 +72,7 @@
 				case "join":
 					break;
 				default:
-					
+					store.save(mainCanvas)
 			}
 			document.addEventListener('keyup', function (e) {
 				var key = e.keyCode || '';

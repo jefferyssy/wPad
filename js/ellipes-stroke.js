@@ -73,6 +73,7 @@
 					break;
 				default:
 					Ellipse(mainCtx, start_X, start_Y, Math.abs(end_X-start_X), Math.abs(end_Y - start_Y))
+					store.save(mainCanvas)
 			}
 
 
