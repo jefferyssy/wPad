@@ -27,7 +27,6 @@
 				params = this.getParams(),
 				bufferCanvas = this.getBufferCanvas(),
 				rect = bufferCanvas.getBoundingClientRect();
-
 			rect.top = rect.top + window.scrollY;
 			rect.left = rect.left + window.scrollX;
 			var x = e.clientX-rect.left, y = e.clientY-rect.top;
@@ -67,7 +66,6 @@
 				data = data.data;
 
 			bufferCanvas.width = bufferCanvas.width;
-
 			switch(pointType) {
 			case "begin":
 				bufferCtx.moveTo((data[0]*xs)>>0, (data[1]*ys)>>0);
@@ -82,6 +80,7 @@
 				mainCtx.lineTo((data[1][0]*xs)>>0, (data[1][1]*ys)>>0);
 				mainCtx.stroke();
 				mainCtx.save();
+				store.save(mainCanvas)
 			}
 		}
 	};

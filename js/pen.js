@@ -80,6 +80,7 @@
 			break;
 			default:
 				ctx.save();
+				store.save(mainCanvas)
 			}
 		}
 	};
