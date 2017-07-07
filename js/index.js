@@ -70,8 +70,7 @@
 				tool = this.getModule(toolName);
 			tool && tool.draw.call(this, data);
 			if (-1 !== ["pen"].indexOf(toolName)) {
-				// !isCache && trackCache[self.name].push(data);
-				!isCache && "end" === data.pointType.toLowerCase() && trackCache[self.name].push(data);
+				!isCache && trackCache[self.name].push(data);
 			} else {
 				!isCache && "end" === data.pointType.toLowerCase() && trackCache[self.name].push(data);
 			}
