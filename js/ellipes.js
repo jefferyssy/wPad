@@ -61,16 +61,18 @@
 				start_X = _data[0][0],
 				start_Y = _data[0][1],
 				end_X = _data[1][0],
-				end_Y = _data[1][1];
+				end_Y = _data[1][1],
+                color = document.querySelector('#panColor');
+
             bufferCanvas.width = bufferCanvas.width;
 			switch (pointType) {
 				case "begin":
 					break;
 				case "join":
-					Ellipse(bufferCtx, start_X, start_Y, Math.abs(end_X-start_X), Math.abs(end_Y - start_Y))
+					Ellipse(bufferCtx, start_X, start_Y, Math.abs(end_X-start_X), Math.abs(end_Y - start_Y),color.value);
 					break;
 				default:
-					Ellipse(mainCtx, start_X, start_Y, Math.abs(end_X-start_X), Math.abs(end_Y - start_Y))
+					Ellipse(mainCtx, start_X, start_Y, Math.abs(end_X-start_X), Math.abs(end_Y - start_Y),color.value);
 					store.save(mainCanvas)
 			}
 
@@ -84,13 +86,14 @@
 			 * @param {int} a 轴半距离
 			 * @param {int} b 轴半距离
 			 */
-			function Ellipse(context, x, y, a, b) {
+			function Ellipse(context, x, y, a, b,color) {
 				var k = 0.5522848,
 				ox = k * a,
 				oy = k * b;
 
 				context.save();
 				context.translate(x, y);
+				context.fillStyle = color;
 				context.beginPath();
 				context.moveTo(0, b);
 				context.bezierCurveTo(ox, b, a, oy, a, 0);

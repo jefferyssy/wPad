@@ -61,7 +61,8 @@
 				start_X = _data[0][0],
 				start_Y = _data[0][1],
 				end_X = _data[1][0],
-				end_Y = _data[1][1];
+				end_Y = _data[1][1],
+				color = document.querySelector('#panColor');
 
 			bufferCanvas.width = bufferCanvas.width;
 			switch (pointType) {
@@ -69,10 +70,10 @@
 					// bufferCtx.moveTo((data[0] * xs) >> 0, (data[1] * ys) >> 0);
 					break;
 				case "join":
-					drawArrow(bufferCtx,start_X,start_Y,end_X,end_Y,3,'black');
+					drawArrow(bufferCtx,start_X,start_Y,end_X,end_Y,3,color.value);
 					break;
 				default:
-					drawArrow(mainCtx,start_X,start_Y,end_X,end_Y,3,'black');
+					drawArrow(mainCtx,start_X,start_Y,end_X,end_Y,3,color.value);
 					store.save(mainCanvas)
 			}
 

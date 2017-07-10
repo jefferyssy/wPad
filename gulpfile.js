@@ -127,7 +127,8 @@ gulp.task("server", () => {
 		host: fileConfig.host||"localhost",
 		port: fileConfig.port||8080,
 		startPath: fileConfig.path||"",
-		browser: fileConfig.browser||["firefox", "chrome"],
+		// browser: fileConfig.browser||["firefox", "chrome"],
+		browser: fileConfig.browser||["chrome"],
 		server: {
 			baseDir: "./",
 			proxy: fileConfig.proxy||""

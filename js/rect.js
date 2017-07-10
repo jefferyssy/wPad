@@ -61,19 +61,21 @@
 				start_X = _data[0][0],
 				start_Y = _data[0][1],
 				end_X = _data[1][0],
-				end_Y = _data[1][1];
+				end_Y = _data[1][1],
+                color = document.querySelector('#panColor');
 
 			bufferCanvas.width = bufferCanvas.width;
-			console.log(JSON.stringify(data))
 			switch (pointType) {
 				case "begin":
 					// bufferCtx.moveTo((data[0] * xs) >> 0, (data[1] * ys) >> 0);
 					break;
 				case "join":
+					bufferCtx.fillStyle = color.value;
 					bufferCtx.fillRect(start_X, start_Y, end_X - start_X, end_Y - start_Y);
 					bufferCtx.save();
 					break;
 				default:
+                    mainCtx.fillStyle = color.value;
 					mainCtx.fillRect(start_X, start_Y, end_X - start_X, end_Y - start_Y);
 					mainCtx.save();
 					store.save(mainCanvas)
