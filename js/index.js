@@ -174,6 +174,10 @@
 							// store.undo(mainCanvas.getContext('2d'));
 							handleData(trackCache, self);
 							break;
+						case "color":
+							var colorDom = document.querySelector('#panColor');
+							colorDom.click();
+							break;
 						default:
 							self.item = tool;
 							mainCanvas.setAttribute("item", name);

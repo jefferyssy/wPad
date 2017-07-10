@@ -63,7 +63,8 @@
 				bufferCtx = bufferCanvas.getContext("2d"),
 				xs = mainCanvas.width/data.width,
 				ys = mainCanvas.height/data.height,
-				data = data.data;
+				data = data.data,
+				color = document.querySelector('#panColor');
 
 			bufferCanvas.width = bufferCanvas.width;
 			switch(pointType) {
@@ -76,10 +77,12 @@
 				bufferCtx.stroke();
 				break;
 			default:
+				mainCtx.strokeStyle = color.value;
+				mainCtx.beginPath();
 				mainCtx.moveTo((data[0][0]*xs)>>0, (data[0][1]*ys)>>0);
 				mainCtx.lineTo((data[1][0]*xs)>>0, (data[1][1]*ys)>>0);
+				mainCtx.closePath();
 				mainCtx.stroke();
-				mainCtx.save();
 				store.save(mainCanvas)
 			}
 		}
