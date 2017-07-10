@@ -62,7 +62,6 @@
 				start_Y = _data[0][1],
 				end_X = _data[1][0],
 				end_Y = _data[1][1];
-
 			bufferCanvas.width = bufferCanvas.width;
 			switch (pointType) {
 				case "begin":

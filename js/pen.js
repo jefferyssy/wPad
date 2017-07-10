@@ -32,6 +32,8 @@
             rect.top = rect.top + window.scrollY;
             rect.left = rect.left + window.scrollX;
             var x = e.clientX - rect.left, y = e.clientY - rect.top;
+            ctx.strokeStyle = document.querySelector('#panColor').value;
+            ctx.beginPath();
             ctx.moveTo(x, y);
             params.draw.call(this, { item: this.item.name, pointType: "begin", data: [x, y], width: mainCanvas.width, height: mainCanvas.height, time: Date.now() });
         },
@@ -60,6 +62,7 @@
             rect.left = rect.left + window.scrollX;
             var x = e.clientX - rect.left, y = e.clientY - rect.top;
             params.draw.call(this, { item: this.item.name, pointType: "end", data: [x, y], width: mainCanvas.width, height: mainCanvas.height, time: Date.now() });
+            ctx.closePath();
             ctx.save();
         },
         draw: function (data) {
@@ -73,8 +76,8 @@
 
             switch (pointType) {
                 case "begin":
-                    ctx.strokeStyle = color.value;
-                    ctx.beginPath();
+                	ctx.strokeStyle = color.value;
+                	ctx.beginPath();
                     ctx.moveTo((data[0] * xs) >> 0, (data[1] * ys) >> 0);
                     break;
                 case "join":
@@ -84,7 +87,6 @@
                 default:
                     ctx.closePath();
                     ctx.save();
-                    store.save(mainCanvas)
             }
         }
     };
