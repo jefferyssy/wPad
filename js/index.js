@@ -14,8 +14,9 @@
 //*****************************************************
 //*****************************************************
 ; (function (undefined) {
+	window.trackCache = {};
 	var vm = window.vm || {},
-		trackCache = {},
+		// trackCache = {},
 		reCache = [],
 		toString = Object.prototype.toString,
 		imgNode = document.createElement("IMG"),
@@ -179,6 +180,9 @@
 						case "color":
 							var colorDom = document.querySelector('#panColor');
 							colorDom.click();
+							break;
+						case "eyedropper":
+							self.item = tool;
 							break;
 						default:
 							self.item = tool;
