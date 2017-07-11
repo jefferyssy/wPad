@@ -27,56 +27,59 @@
                 params = this.getParams(),
                 mainCanvas = this.getMainCanvas(),
                 ctx = mainCanvas.getContext("2d"),
-                rect = mainCanvas.getBoundingClientRect();
+                rect = mainCanvas.getBoundingClientRect(),
+                color = document.querySelector('#panColor').value;
 
             rect.top = rect.top + window.scrollY;
             rect.left = rect.left + window.scrollX;
             var x = e.clientX - rect.left, y = e.clientY - rect.top;
-            ctx.strokeStyle = document.querySelector('#panColor').value;
+            ctx.strokeStyle = color;
             ctx.beginPath();
             ctx.moveTo(x, y);
-            params.draw.call(this, { item: this.item.name, pointType: "begin", data: [x, y], width: mainCanvas.width, height: mainCanvas.height, time: Date.now() });
+            params.draw.call(this, { item: this.item.name, color:color, pointType: "begin", data: [x, y], width: mainCanvas.width, height: mainCanvas.height, time: Date.now() });
         },
         mousemove: function () {
             var e = arguments[0] || window.event,
                 params = this.getParams(),
                 mainCanvas = this.getMainCanvas(),
                 ctx = mainCanvas.getContext("2d"),
-                rect = mainCanvas.getBoundingClientRect();
+                rect = mainCanvas.getBoundingClientRect(),
+                color = document.querySelector('#panColor').value;
 
             rect.top = rect.top + window.scrollY;
             rect.left = rect.left + window.scrollX;
             var x = e.clientX - rect.left, y = e.clientY - rect.top;
             ctx.lineTo(x, y);
             ctx.stroke();
-            params.draw.call(this, { item: this.item.name, pointType: "join", data: [x, y], width: mainCanvas.width, height: mainCanvas.height, time: Date.now() });
+            params.draw.call(this, { item: this.item.name, color:color, pointType: "join", data: [x, y], width: mainCanvas.width, height: mainCanvas.height, time: Date.now() });
         },
         mouseup: function () {
             var e = arguments[0] || window.event,
                 params = this.getParams(),
                 mainCanvas = this.getMainCanvas(),
                 ctx = mainCanvas.getContext("2d"),
-                rect = mainCanvas.getBoundingClientRect();
+                rect = mainCanvas.getBoundingClientRect(),
+                color = document.querySelector('#panColor').value;
 
             rect.top = rect.top + window.scrollY;
             rect.left = rect.left + window.scrollX;
             var x = e.clientX - rect.left, y = e.clientY - rect.top;
-            params.draw.call(this, { item: this.item.name, pointType: "end", data: [x, y], width: mainCanvas.width, height: mainCanvas.height, time: Date.now() });
+            params.draw.call(this, { item: this.item.name, color:color, pointType: "end", data: [x, y], width: mainCanvas.width, height: mainCanvas.height, time: Date.now() });
             ctx.closePath();
             ctx.save();
         },
-        draw: function (data) {
-            var pointType = data.pointType,
+        draw: function (param) {
+            var pointType = param.pointType,
                 mainCanvas = this.getMainCanvas(),
                 ctx = mainCanvas.getContext("2d"),
-                xs = mainCanvas.width / data.width,
-                ys = mainCanvas.height / data.height,
-                data = data.data,
-                color = document.querySelector('#panColor');
+                xs = mainCanvas.width / param.width,
+                ys = mainCanvas.height / param.height,
+                data = param.data,
+                color = param.color;
 
             switch (pointType) {
                 case "begin":
-                	ctx.strokeStyle = color.value;
+                	ctx.strokeStyle = color;
                 	ctx.beginPath();
                     ctx.moveTo((data[0] * xs) >> 0, (data[1] * ys) >> 0);
                     break;
