@@ -184,6 +184,10 @@
 						case "eyedropper":
 							self.item = tool;
 							break;
+						case "import":
+							self.item = tool;
+							tool.import.call(self);
+							break;
 						default:
 							self.item = tool;
 							mainCanvas.setAttribute("item", name);
