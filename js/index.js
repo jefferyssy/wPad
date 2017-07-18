@@ -188,6 +188,9 @@
 							self.item = tool;
 							tool.import.call(self);
 							break;
+						case "floodfill":
+							self.item = tool;
+							break;
 						default:
 							self.item = tool;
 							mainCanvas.setAttribute("item", name);
