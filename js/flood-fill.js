@@ -11,6 +11,7 @@
 	var lists = [], listItem = [];
 	var leftX = '', rightX = '', startX = '', startY = '', originalX = '', originalY = '', _originalY = '';
 	var init, _init;
+	var topRender = false, bottomRender = false;
 
 	function FloodFill(fn) {
 		if (!this instanceof FloodFill) return new FloodFill(fn);
@@ -29,16 +30,17 @@
 				listItem.push(piexArr[i])
 			}
 		}
+		console.log(lists);
 	};
 
 	function watch(ctx) {
 		init = setInterval(function () {
-			if (leftX != '' && rightX != '') {
+			if (topRender) {
 				renderRect(ctx);
 			}
 		}, 1);
 		_init = setInterval(function () {
-			if (leftX != '' && rightX != '') {
+			if (bottomRender) {
 				_renderRect(ctx);
 			}
 		}, 1);
@@ -54,7 +56,8 @@
 			rightXPoint(originalX, originalY);
 		} else {
 			// clearInterval(init);
-			leftX = '';
+			// leftX = '';
+			topRender = false;
 		}
 	};
 
@@ -68,7 +71,8 @@
 			rightXPoint(originalX, _originalY);
 		} else {
 			// clearInterval(_init);
-			leftX = '';
+			// leftX = '';
+			bottomRender = false;
 		}
 	};
 
@@ -99,6 +103,7 @@
 	function bottomYPoint(x, y) {
 		var position = 1000 * (y - 1) + x;
 		var color = lists[position];
+		console.log(position+"+++++++++++"+color);
 		return color.toString() !== '0,0,0,255' ? true : false;
 	};
 
@@ -114,6 +119,8 @@
 			var x = e.clientX - rect.left, y = e.clientY - rect.top;
 			originalX = x;
 			_originalY = originalY = y;
+			topRender = true;
+			bottomRender = true;
 			getPiex(canvasCtx, mainCanvas);
 			watch(canvasCtx);
 			leftXPoint(x, y);
