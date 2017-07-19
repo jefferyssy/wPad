@@ -33,7 +33,7 @@
             rect.top = rect.top + window.scrollY;
             rect.left = rect.left + window.scrollX;
             var x = e.clientX - rect.left, y = e.clientY - rect.top;
-            ctx.lineWidth = 3;
+            ctx.lineWidth = 1;
             ctx.strokeStyle = color;
             ctx.beginPath();
             ctx.moveTo(x, y);
@@ -81,7 +81,7 @@
             switch (pointType) {
                 case "begin":
                     ctx.strokeStyle = color;
-                    ctx.lineWidth = 3;
+                    ctx.lineWidth = 1;
                 	ctx.beginPath();
                     ctx.moveTo((data[0] * xs) >> 0, (data[1] * ys) >> 0);
                     break;
