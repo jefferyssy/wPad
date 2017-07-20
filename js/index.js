@@ -27,7 +27,7 @@
 			wrap: document.body,
 			layout: "left-top-horizontal",
 			openLocalCache: true,
-			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circleStroke", "ellipesStroke", "rect", "rectStroke", "eraser", "floodFill", "eyeDropper", "text", "scissors", "import", "export", "clear", "undo", "color", "save"],
+			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "floodFill", "eyeDropper", "text", "scissors", "import", "export", "clear", "undo", "color", "save"],
 			done: function () { }
 		},
 		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", floodFill: "填充", eyeDropper: "取色工具", text: "文本", scissors: "截图", import: "插入图片", export: "导出", clear: "清除", undo: "撤销", color: "颜色", save: "保存" },
@@ -112,8 +112,8 @@
 			do {
 				var toolbar = toolbars[i];
 
-				if (toolbar && vm.module[toolbar]) {
-					new vm.module[toolbar](function (m) {
+				if (toolbar && vm.module[toolbar.toLowerCase()]) {
+					new vm.module[toolbar.toLowerCase()](function (m) {
 						str += toolbarTpl.replace(/\$ITEM\$|\$CLASS\$/g, toolbar).replace(/\$TITLE\$/g, titles[toolbar] || "").
 						replace(/\$iconPic\$/g,icon[toolbar]);
 						fn.call(self, toolbar, m);
