@@ -596,5 +596,5 @@
 
 	window.vm = window.vm || {};
 	window.vm.module = window.vm.module || {};
-	window.vm.module["floodFill"] = FloodFill;
+	window.vm.module["floodfill"] = FloodFill;
 }(void (0)));

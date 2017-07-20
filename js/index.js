@@ -27,11 +27,11 @@
 			wrap: document.body,
 			layout: "left-top-horizontal",
 			openLocalCache: true,
-			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "floodFill", "eyeDropper", "text", "scissors", "import", "export", "clear", "undo", "color", "save"],
+			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "floodfill", "eyeDropper", "text", "scissors", "import", "export", "clear", "undo", "color", "save"],
 			done: function () { }
 		},
-		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", floodFill: "填充", eyeDropper: "取色工具", text: "文本", scissors: "截图", import: "插入图片", export: "导出", clear: "清除", undo: "撤销", color: "颜色", save: "保存" },
-		icon = { line:'czs-pad',arrow: "czs-angle-right-l", pen: "czs-pen", circle: "czs-circle-o", ellipes: "czs-eye", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "czs-square-o", rectstroke: "空心矩形", eraser: "czs-wrench-l", floodFill: "填充", eyeDropper: "取色工具", text: "czs-font", scissors: "czs-scissors", import: "czs-come-l", export: "czs-out-l", clear: "czs-trash-l", undo: "czs-angle-left-l", color: "颜色", save: "czs-save"  };
+		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", floodfill: "填充", eyedropper: "取色工具", text: "文本", scissors: "截图", import: "插入图片", export: "导出", clear: "清除", undo: "撤销", color: "颜色", save: "保存" },
+		icon = { line:'czs-pad',arrow: "czs-angle-right-l", pen: "czs-pen", circle: "czs-circle-o", ellipes: "czs-eye", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "czs-square-o", rectstroke: "空心矩形", eraser: "czs-wrench-l", floodfill: "填充", eyedropper: "取色工具", text: "czs-font", scissors: "czs-scissors", import: "czs-come-l", export: "czs-out-l", clear: "czs-trash-l", undo: "czs-angle-left-l", color: "颜色", save: "czs-save"  };
 
 	vm.module = vm.module || {};
 	window.vm = vm;
