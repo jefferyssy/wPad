@@ -60,18 +60,27 @@
 				_data = data.data,
 				start_X = _data[0],
 				start_Y = _data[1];
+			var _input = document.getElementsByTagName('input')[0];
 
 			// bufferCanvas.width = bufferCanvas.width;
 			switch (pointType) {
 				case "begin":
 					x = start_X,
 					y = start_Y;
-					document.getElementsByTagName('input')[0].style.top = y + 'px';
-					document.getElementsByTagName('input')[0].style.left = x + 'px';
+					if(!_input.getAttribute('isInit')){
+						_input.setAttribute('isInit',true);
+						_input.style.top = y + 'px';
+						_input.style.left = x + 'px';
+					}else{
+						_input.setAttribute('isInit','');
+						_input.value = '';
+						_input.style.top = '-10000px';
+						_input.style.left = '-10000px';
+					}
 					break;
 				case "join":
 					break;
-				default:
+				default:	
 					store.save(mainCanvas)
 			}
 			document.addEventListener('keyup', function (e) {

@@ -64,7 +64,6 @@
 				end_Y = _data[1][1];
 
 			bufferCanvas.width = bufferCanvas.width;
-			console.log(JSON.stringify(data))
 			switch (pointType) {
 				case "begin":
 					// bufferCtx.moveTo((data[0] * xs) >> 0, (data[1] * ys) >> 0);

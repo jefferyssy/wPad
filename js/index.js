@@ -27,11 +27,11 @@
 			wrap: document.body,
 			layout: "left-top-horizontal",
 			openLocalCache: true,
-			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "floodfill", "eyeDropper", "text", "scissors", "import", "export", "clear", "undo", "color", "save"],
+			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "floodfill", "eyedropper", "text","import", "export", "clear", "undo", "color", "save"],
 			done: function () { }
 		},
-		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", floodfill: "填充", eyedropper: "取色工具", text: "文本", scissors: "截图", import: "插入图片", export: "导出", clear: "清除", undo: "撤销", color: "颜色", save: "保存" },
-		icon = { line:'czs-pad',arrow: "czs-angle-right-l", pen: "czs-pen", circle: "czs-circle-o", ellipes: "czs-eye", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "czs-square-o", rectstroke: "空心矩形", eraser: "czs-wrench-l", floodfill: "填充", eyedropper: "取色工具", text: "czs-font", scissors: "czs-scissors", import: "czs-come-l", export: "czs-out-l", clear: "czs-trash-l", undo: "czs-angle-left-l", color: "颜色", save: "czs-save"  };
+		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", floodfill: "填充", eyedropper: "取色工具", text: "文本", import: "插入图片", export: "导出", clear: "清空", undo: "撤销", color: "颜色", save: "保存" };
+		// icon = { line:'czs-pad',arrow: "czs-angle-right-l", pen: "czs-pen", circle: "czs-circle-o", ellipes: "czs-eye", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "czs-square-o", rectstroke: "空心矩形", eraser: "czs-wrench-l", floodfill: "填充", eyedropper: "取色工具", text: "czs-font", scissors: "czs-scissors", import: "czs-come-l", export: "czs-out-l", clear: "czs-trash-l", undo: "czs-angle-left-l", color: "颜色", save: "czs-save"  };
 
 	vm.module = vm.module || {};
 	window.vm = vm;
@@ -42,7 +42,7 @@
 						<canvas class='can main-can' width='$MAINCANVASWIDTH$' height='$MAIINCANVASHEIGHT$'>浏览器版本太低，暂不支持此功能，请更新！</canvas>\
 					</div>\
 				</div>";
-	var toolbarTpl = "<li class='toolbar-item-wrap'><i item='$ITEM$' class='iconfont icon-$CLASS$ $iconPic$' title='$TITLE$'></i></li>";
+	var toolbarTpl = "<li class='toolbar-item-wrap'><i item='$ITEM$' class='iconfont icon-$CLASS$' title='$TITLE$'>$TITLE$</i></li>";
 
 	var addEvent = window.addEventListener ? function (target, type, fn, use) {
 		if (!target || !type || !fn) return;
@@ -114,8 +114,7 @@
 
 				if (toolbar && vm.module[toolbar.toLowerCase()]) {
 					new vm.module[toolbar.toLowerCase()](function (m) {
-						str += toolbarTpl.replace(/\$ITEM\$|\$CLASS\$/g, toolbar).replace(/\$TITLE\$/g, titles[toolbar] || "").
-						replace(/\$iconPic\$/g,icon[toolbar]);
+						str += toolbarTpl.replace(/\$ITEM\$|\$CLASS\$/g, toolbar).replace(/\$TITLE\$/g, titles[toolbar] || "");
 						fn.call(self, toolbar, m);
 						count++;
 						count >= len && "[object Function]" === toString.call(params.done) && params.done.call(self);
@@ -137,8 +136,8 @@
 			bufferCanvas = wrap.getElementsByClassName("buffer-can")[0],
 			mainCtx = mainCanvas.getContext("2d");
 
-		mainCtx.fillStyle = "#fff";
-		mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
+		// mainCtx.fillStyle = "#fff";
+		// mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
 
 		store.save(mainCanvas);
 		addEvent(mainCanvas, "mousedown", function () {

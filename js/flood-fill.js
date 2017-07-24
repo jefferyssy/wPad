@@ -26,7 +26,6 @@
 					listItem.push(piexArr[i])
 				}
 			}
-			console.log(lists);
 		},
 		piexColor: function (x, y) {
 			var position = 1000 * (y - 1) + x;

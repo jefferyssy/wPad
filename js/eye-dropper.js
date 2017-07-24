@@ -72,5 +72,5 @@
 
 	window.vm = window.vm || {};
 	window.vm.module = window.vm.module || {};
-	window.vm.module["eyeDropper"] = EyeDropper;
+	window.vm.module["eyedropper"] = EyeDropper;
 }(void (0)));

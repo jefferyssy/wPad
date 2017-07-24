@@ -30,7 +30,7 @@
 		export: function() {
 			var	mainCanvas = this.getMainCanvas(),
 				imageData = mainCanvas.toDataURL(type);
-			console.log(imageData);
+
 			imageData = imageData.replace(/image\/\w+(?=;)/, "image/octet-stream");
 			_export(imageData, Date.now()+"."+type);
 		}

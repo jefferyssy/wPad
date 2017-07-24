@@ -68,7 +68,6 @@
 				ys = mainCanvas.height/param.height,
 				data = param.data,
 				color = param.color;
-			console.log(data);
 			bufferCanvas.width = bufferCanvas.width;
 			switch(pointType) {
 			case "begin":

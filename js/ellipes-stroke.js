@@ -51,7 +51,6 @@
 		},
 		draw: function (data) {
 
-			console.log(data);
 			var pointType = data.pointType,
 				mainCanvas = this.getMainCanvas(),
 				bufferCanvas = this.getBufferCanvas(),
