@@ -13,6 +13,28 @@
 		this.name = "EyeDropper";
 		fn.call(Object.create(null), this);
 	}
+	var listItem = [], lists = [];
+	function getPiex(canvas) {
+		var piexArr = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+		for (var i = 0; i < piexArr.length; i++) {
+			if (listItem.length != 4) {
+				listItem.push(piexArr[i]);
+			} else {
+				lists.push(listItem);
+				listItem = [];
+				listItem.push(piexArr[i])
+			}
+		}
+	};
+
+	function piexColor(x, y) {
+		var position = 1000 * (y - 1) + x;
+		return {
+			color: lists[position],
+			index: position
+		};
+	}
+
 	function isSelect(x, y, data) {
 		if (data && data.length) {
 			data.map(function (item, index) {
@@ -52,6 +74,9 @@
 							document.querySelector('#panColor').value = item.color;
 						}
 						break;
+					default:
+						var result = piexColor(param[0][0],param[0][1]);
+						document.querySelector('#panColor').value = result.color;
 				}
 			});
 		}
@@ -67,6 +92,7 @@
 			var x = e.clientX - rect.left, y = e.clientY - rect.top;
 			var data = this.getCache();
 			isSelect(x, y, data);
+			getPiex(bufferCanvas);
 		}
 	};
 

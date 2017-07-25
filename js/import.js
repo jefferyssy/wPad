@@ -34,8 +34,13 @@
 					//将结果显示到canvas
 					var img = new Image();
 					img.onload = function () {
+						mainCtx1.globalCompositeOperation="destination-over";
+						mainCtx.globalCompositeOperation="destination-over";
 						mainCtx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
 						mainCtx1.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
+						store.save(mainCanvas1);
+						mainCtx1.globalCompositeOperation="source-over";
+						mainCtx.globalCompositeOperation="source-over";
 					}
 					img.src = reader.result;
 				}

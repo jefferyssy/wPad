@@ -72,7 +72,8 @@
 					mainCtx.clearRect(end_X,end_Y,20,20)
 					break;
 				default:
-					mainCtx.clearRect(end_X,end_Y,20,20)
+					mainCtx.clearRect(end_X,end_Y,20,20);
+					store.save(mainCanvas);
 			}
 		}
 	};

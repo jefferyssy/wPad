@@ -73,7 +73,7 @@
 			tool && tool.draw.call(this, data);
 			if (-1 !== ["pen"].indexOf(toolName)) {
 				!isCache && trackCache[self.name].push(data);
-			} else {
+			}else {
 				!isCache && "end" === data.pointType.toLowerCase() && trackCache[self.name].push(data);
 			}
 		},	
@@ -173,8 +173,8 @@
 							tool.export.call(self);
 							break;
 						case "undo":
-							// store.undo(mainCanvas.getContext('2d'));
-							handleData(trackCache, self);
+							store.undo(mainCanvas.getContext('2d'),self);
+							// handleData(trackCache, self);
 							break;
 						case "color":
 							var colorDom = document.querySelector('#panColor');
@@ -257,16 +257,16 @@
 	}
 
 	function handleData(data, self) {
-		var pad2 = data.pad1;
-		if (pad2.length) {
-			reCache.push(pad2.pop());
+		var pad = data.pad1;
+		if (pad.length) {
+			reCache.push(pad.pop());
 			var mainCanvas = self.getMainCanvas(),
 				mainCtx = mainCanvas.getContext("2d");
 			mainCanvas.width = mainCanvas.width;
 			mainCtx.fillStyle = "#fff";
 			mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
-			if (pad2.length) {
-				pad2.map(function (item, index) {
+			if (pad.length) {
+				pad.map(function (item, index) {
 					var name = self.getModule(item.item.toLowerCase());
 					name.draw.call(self, item)
 				});

@@ -72,12 +72,15 @@
         draw: function (param) {
             var pointType = param.pointType,
                 mainCanvas = this.getMainCanvas(),
+                bufferCanvas = this.getBufferCanvas(),
                 ctx = mainCanvas.getContext("2d"),
+                bufferCtx = bufferCanvas.getContext("2d"),
                 xs = mainCanvas.width / param.width,
                 ys = mainCanvas.height / param.height,
                 data = param.data,
                 color = param.color;
-
+                
+            bufferCanvas.width = bufferCanvas.width;
             switch (pointType) {
                 case "begin":
                     ctx.strokeStyle = color;
@@ -92,6 +95,7 @@
                 default:
                     ctx.closePath();
                     ctx.save();
+                    store.save(mainCanvas);
             }
         }
     };
