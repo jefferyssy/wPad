@@ -14,7 +14,7 @@
 		fn.call(Object.create(null), this);
 	}
 	var listItem = [], lists = [];
-	function getPiex(canvas) {
+	function getPiex(ctx,canvas) {
 		var piexArr = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 		for (var i = 0; i < piexArr.length; i++) {
 			if (listItem.length != 4) {
@@ -75,8 +75,8 @@
 						}
 						break;
 					default:
-						var result = piexColor(param[0][0],param[0][1]);
-						document.querySelector('#panColor').value = result.color;
+						// var result = piexColor(param[0][0],param[0][1]);
+						// document.querySelector('#panColor').value = result.color;
 				}
 			});
 		}
@@ -86,13 +86,19 @@
 		mousedown: function () {
 			var e = arguments[0] || window.event,
 				bufferCanvas = this.getBufferCanvas(),
-				rect = bufferCanvas.getBoundingClientRect();
+				rect = bufferCanvas.getBoundingClientRect(),
+				ctx = bufferCanvas.getContext("2d");
 			rect.top = rect.top + window.scrollY;
 			rect.left = rect.left + window.scrollX;
 			var x = e.clientX - rect.left, y = e.clientY - rect.top;
 			var data = this.getCache();
 			isSelect(x, y, data);
-			getPiex(bufferCanvas);
+			getPiex(ctx,bufferCanvas);
+			if(data.length == 0){
+				var result = piexColor(x,y);
+				//TODO rgba值需要转换
+				document.querySelector('#panColor').value = result.color;
+			}
 		}
 	};
 
