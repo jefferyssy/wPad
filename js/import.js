@@ -41,6 +41,7 @@
 						store.save(mainCanvas1);
 						mainCtx1.globalCompositeOperation="source-over";
 						mainCtx.globalCompositeOperation="source-over";
+						
 					}
 					img.src = reader.result;
 				}

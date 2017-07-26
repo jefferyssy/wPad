@@ -138,7 +138,6 @@
 
 		// mainCtx.fillStyle = "#fff";
 		// mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
-
 		store.save(mainCanvas);
 		addEvent(mainCanvas, "mousedown", function () {
 			self.item.mousedown && self.item.mousedown.apply(self, [].slice.call(arguments, 0));

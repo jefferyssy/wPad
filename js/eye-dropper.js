@@ -14,7 +14,8 @@
 		fn.call(Object.create(null), this);
 	}
 	var listItem = [], lists = [];
-	function getPiex(ctx,canvas) {
+	function getPiex(ctx, canvas) {
+		lists = [];
 		var piexArr = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 		for (var i = 0; i < piexArr.length; i++) {
 			if (listItem.length != 4) {
@@ -35,6 +36,15 @@
 		};
 	}
 
+	var rgbToHex = function (rgb) {
+		var color = rgb.toString().match(/\d+/g);
+		var hex = "#";
+
+		for (var i = 0; i < 3; i++) {
+			hex += ("0" + Number(color[i]).toString(16)).slice(-2);
+		}
+		return hex;
+	};
 	function isSelect(x, y, data) {
 		if (data && data.length) {
 			data.map(function (item, index) {
@@ -75,10 +85,17 @@
 						}
 						break;
 					default:
-						// var result = piexColor(param[0][0],param[0][1]);
-						// document.querySelector('#panColor').value = result.color;
+						var result = piexColor(x, y);
+						result.color.pop()
+						//TODO rgba值需要转换
+						document.querySelector('#panColor').value = rgbToHex(result.color.toString());
 				}
 			});
+		} else {
+			var result = piexColor(x, y);
+			result.color.pop()
+			//TODO rgba值需要转换
+			document.querySelector('#panColor').value = rgbToHex(result.color.toString());
 		}
 	}
 	EyeDropper.prototype = {
@@ -87,18 +104,18 @@
 			var e = arguments[0] || window.event,
 				bufferCanvas = this.getBufferCanvas(),
 				rect = bufferCanvas.getBoundingClientRect(),
-				ctx = bufferCanvas.getContext("2d");
+				mainCanvas = this.getMainCanvas(),
+				mainCtx = mainCanvas.getContext("2d");
 			rect.top = rect.top + window.scrollY;
 			rect.left = rect.left + window.scrollX;
 			var x = e.clientX - rect.left, y = e.clientY - rect.top;
 			var data = this.getCache();
-			isSelect(x, y, data);
-			getPiex(ctx,bufferCanvas);
-			if(data.length == 0){
-				var result = piexColor(x,y);
-				//TODO rgba值需要转换
-				document.querySelector('#panColor').value = result.color;
-			}
+			getPiex(mainCtx, mainCanvas);
+			// isSelect(x, y, data);
+			var result = piexColor(x, y);
+			result.color.pop()
+			console.log(result.color.toString());
+			document.querySelector('#panColor').value = rgbToHex(result.color.toString());
 		}
 	};
 

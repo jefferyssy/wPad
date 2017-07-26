@@ -24,7 +24,7 @@
 			rect.top = rect.top + window.scrollY;
 			rect.left = rect.left + window.scrollX;
 			var x = e.clientX - rect.left, y = e.clientY - rect.top;
-			params.draw.call(this, { item: this.item.name, pointType: "begin", data: [x, y], width: bufferCanvas.width, height: bufferCanvas.height, time: Date.now() });
+			params.draw.call(this, { item: this.item.name,pointType: "begin", data: [x, y], width: bufferCanvas.width, height: bufferCanvas.height, time: Date.now() });
 			this.item.startX = x;
 			this.item.startY = y;
 		},
@@ -86,16 +86,19 @@
 			}
 			document.addEventListener('keyup', function (e) {
 				var key = e.keyCode || '';
+				var _color = document.querySelector('#panColor').value;
 				var text = '';
 				if (key == 13) {
 					text = document.getElementById('panInput').value;
-					drawText(text);
+					drawText(text,_color);
 				}
 			});
-			function drawText(text) {
+			function drawText(text,color) {
 				document.getElementsByClassName('main-can')[0].getContext("2d").font = "12px serif";
+				document.getElementsByClassName('main-can')[0].getContext("2d").fillStyle  = color;
 				document.getElementsByClassName('main-can')[0].getContext("2d").fillText(text, x, y);
 				document.getElementsByClassName('main-can')[1].getContext("2d").font = "12px serif";
+				document.getElementsByClassName('main-can')[1].getContext("2d").fillStyle  = color;
 				document.getElementsByClassName('main-can')[1].getContext("2d").fillText(text, x, y);
 				document.getElementById('panInput').value = '';
 				document.getElementsByTagName('input')[0].style.top = '-10000px';
