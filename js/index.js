@@ -27,11 +27,12 @@
 			wrap: document.body,
 			layout: "left-top-horizontal",
 			openLocalCache: true,
-			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "floodfill", "eyedropper", "text","import", "export", "clear", "undo", "color", "save"],
+			// toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "floodfill", "eyedropper", "text","import", "export", "clear", "undo", "color", "save"],
+			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "brush", "eyedropper", "text", "import", "export", "clear", "undo", "color", "save"],
 			done: function () { }
 		},
-		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", floodfill: "填充", eyedropper: "取色工具", text: "文本", import: "插入图片", export: "导出", clear: "清空", undo: "撤销", color: "颜色", save: "保存" };
-		// icon = { line:'czs-pad',arrow: "czs-angle-right-l", pen: "czs-pen", circle: "czs-circle-o", ellipes: "czs-eye", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "czs-square-o", rectstroke: "空心矩形", eraser: "czs-wrench-l", floodfill: "填充", eyedropper: "取色工具", text: "czs-font", scissors: "czs-scissors", import: "czs-come-l", export: "czs-out-l", clear: "czs-trash-l", undo: "czs-angle-left-l", color: "颜色", save: "czs-save"  };
+		// titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", floodfill: "填充", eyedropper: "取色工具", text: "文本", import: "插入图片", export: "导出", clear: "清空", undo: "撤销", color: "颜色", save: "保存" };
+		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", brush: "笔刷", eyedropper: "取色工具", text: "文本", import: "插入图片", export: "导出", clear: "清空", undo: "撤销", color: "颜色", save: "保存" };
 
 	vm.module = vm.module || {};
 	window.vm = vm;
@@ -73,10 +74,10 @@
 			tool && tool.draw.call(this, data);
 			if (-1 !== ["pen"].indexOf(toolName)) {
 				!isCache && trackCache[self.name].push(data);
-			}else {
+			} else {
 				!isCache && "end" === data.pointType.toLowerCase() && trackCache[self.name].push(data);
 			}
-		},	
+		},
 		clear: function () {
 			var self = this,
 				mainCanvas = this.getMainCanvas(),
@@ -138,6 +139,28 @@
 
 		// mainCtx.fillStyle = "#fff";
 		// mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
+		//笔刷添加钩子
+		document.querySelector('[item=brush]').parentNode.setAttribute('data-type', 'J_brush');
+		var Dom = document.querySelector('[data-type=J_brush]'),
+			ulDom = document.querySelector('.brush-list');
+
+		Dom.appendChild(ulDom);
+		Dom.onmouseover = function () {
+			ulDom.removeAttribute('class', 'none');
+			ulDom.setAttribute('class', 'brush-list')
+		};
+		Dom.onmouseout = function () {
+			ulDom.setAttribute('class', 'none');
+		};
+		var liDom = document.querySelector('[data-type=J_brush] .brush-list').children;
+		for(var i=0;i<liDom.length;i++){
+			liDom[i].onclick = function (e) {
+				var brushWidth = this.innerText;
+				document.querySelector('#brushWidth').value = brushWidth;
+				Dom.childNodes[0].click();
+			};
+		}
+
 		store.save(mainCanvas);
 		addEvent(mainCanvas, "mousedown", function () {
 			self.item.mousedown && self.item.mousedown.apply(self, [].slice.call(arguments, 0));
@@ -172,7 +195,7 @@
 							tool.export.call(self);
 							break;
 						case "undo":
-							store.undo(mainCanvas.getContext('2d'),self);
+							store.undo(mainCanvas.getContext('2d'), self);
 							// handleData(trackCache, self);
 							break;
 						case "color":

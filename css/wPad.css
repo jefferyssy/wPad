@@ -36,7 +36,8 @@
     font-size: 12px;
     text-align: center;
     color: #fff;
-    background-color: #32cd32;
+	background-color: #32cd32;
+	position: relative;
 }
 
 .left-top-horizontal .toolbar-wrap {

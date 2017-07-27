@@ -32,6 +32,32 @@
 			top: -10000px;
 			left: -10000px;
         }
+		.brush-list{
+			position: absolute;
+			list-style: none;
+			/* top: -10000px;
+			left: -10000px; */
+			background-color: #32cd32;
+			margin: 0;
+			padding: 0;
+			top: 26px;
+			left: 0px;
+		}
+		.brush-list li{
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 12px;
+			text-align: center;
+			color: #fff;
+			width: 34px;
+			padding: 6px 0;
+		}
+		.brush-list li:hover{
+			background-color: #198b19;
+		}
+		.none{
+			display: none;
+		}
 	</style>
 </head>
 <body>
@@ -39,7 +65,14 @@
 	<div id="pad2" class="pad-wrap2"></div>
 	<input type="text" id='panInput'>
 	<input type="color" value="#000000" id='panColor'>
+	<input type="text" value="10" id='brushWidth'>
 	<input  id="fileOne" type="file" />
+	<ul class="brush-list none">
+		<li>1</li>
+		<li>5</li>
+		<li>10</li>
+		<li>30</li>
+	</ul>
 </body>
 <!--<script type="text/javascript" src="./dist/js/wPad.min.js"></script>-->
  <script type="text/javascript" src="./js/store.js"></script>
@@ -62,6 +95,7 @@
 <script type="text/javascript" src="./js/scissors.js"></script>
 <script type="text/javascript" src="./js/text.js"></script>
 <script type="text/javascript" src="./js/undo.js"></script>
+<script type="text/javascript" src="./js/brush.js"></script>
 <script type="text/javascript" src="./js/index.js"></script> 
 <script type="text/javascript">
 	var params1 = {
