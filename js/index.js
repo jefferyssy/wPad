@@ -14,9 +14,8 @@
 //*****************************************************
 //*****************************************************
 ; (function (undefined) {
-	window.trackCache = {};
 	var vm = window.vm || {},
-		// trackCache = {},
+		trackCache = {},
 		reCache = [],
 		toString = Object.prototype.toString,
 		imgNode = document.createElement("IMG"),
@@ -60,6 +59,7 @@
 		this.getParams = function () { return params; };
 		this.getModule = function (name) { return !name ? _module : _module[name]; };
 		this.getCache = function () { return trackCache[self.name]; };
+		this.getStore = function () { return store.undoList; };
 		trackCache[self.name] = [];
 		buildPad.call(this, function (name, m) { _module[name] = m; });
 	}
