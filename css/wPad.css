@@ -38,6 +38,7 @@
     color: #fff;
 	background-color: #32cd32;
 	position: relative;
+	user-select: none;
 }
 
 .left-top-horizontal .toolbar-wrap {

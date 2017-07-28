@@ -82,10 +82,10 @@
 			var self = this,
 				mainCanvas = this.getMainCanvas(),
 				mainCtx = mainCanvas.getContext("2d");
-			mainCanvas.width = mainCanvas.width;
+			// mainCanvas.width = mainCanvas.width;
 			trackCache[self.name] = [];
-			mainCtx.fillStyle = "#fff";
-			mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
+			// mainCtx.fillStyle = "#fff";
+			mainCtx.clearRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
 		}
 	};
 

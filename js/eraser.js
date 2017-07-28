@@ -68,11 +68,11 @@
 					
 					break;
 				case "join":
-					bufferCtx.clearRect(end_X,end_Y,20, 20)
-					mainCtx.clearRect(end_X,end_Y,20,20)
+					bufferCtx.clearRect(end_X,end_Y,10, 10)
+					mainCtx.clearRect(end_X,end_Y,10,10)
 					break;
 				default:
-					mainCtx.clearRect(end_X,end_Y,20,20);
+					mainCtx.clearRect(end_X,end_Y,10,10);
 					store.save(mainCanvas);
 			}
 		}
