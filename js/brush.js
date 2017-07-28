@@ -74,15 +74,8 @@
             // bufferCanvas.width = bufferCanvas.width;
             switch (pointType) {
                 case "begin":
-                    // bufferCtx.moveTo((data[0] * xs) >> 0, (data[1] * ys) >> 0);
                     break;
                 case "join":
-                    // bufferCtx.restore();
-                    // bufferCtx.beginPath();
-                    // bufferCtx.fillStyle = color;
-                    // bufferCtx.arc(end_X, end_Y , width, 0, Math.PI * 2, true);
-                    // bufferCtx.closePath();
-                    // bufferCtx.fill();
                     mainCtx.restore();
                     mainCtx.beginPath();
                     mainCtx.fillStyle = color;
@@ -91,12 +84,6 @@
                     mainCtx.fill();
                     break;
                 default:
-                    // mainCtx.restore();
-                    // mainCtx.beginPath();
-                    // mainCtx.fillStyle = color;
-                    // mainCtx.arc(end_X, end_Y, width, 0, Math.PI * 2, true);
-                    // mainCtx.closePath();
-                    // mainCtx.fill();
                     store.save(mainCanvas)
             }
         }

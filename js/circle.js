@@ -70,13 +70,11 @@
 			bufferCanvas.width = bufferCanvas.width;
 			switch (pointType) {
 				case "begin":
-					// bufferCtx.moveTo((data[0] * xs) >> 0, (data[1] * ys) >> 0);
 					break;
 				case "join":
 					bufferCtx.beginPath();
 					bufferCtx.arc(end_X - (end_X - start_X) / 2, end_Y - (end_Y - start_Y) / 2, Math.sqrt((Math.pow((end_X - start_X), 2) + Math.pow((end_Y - start_Y), 2))) / 2, 0, Math.PI * 2, true);
 					bufferCtx.closePath();
-					// bufferCtx.stroke();
 					bufferCtx.fillStyle = color;
     				bufferCtx.fill();	
 					break;

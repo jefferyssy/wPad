@@ -94,7 +94,6 @@
 		} else {
 			var result = piexColor(x, y);
 			result.color.pop()
-			//TODO rgba值需要转换
 			document.querySelector('#panColor').value = rgbToHex(result.color.toString());
 		}
 	}

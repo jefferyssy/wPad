@@ -1,5 +1,5 @@
 
-window.store = {
+var store = {
     undoList: [],
     redoList: [],
     itemObj:{},

@@ -70,7 +70,6 @@
 			bufferCanvas.width = bufferCanvas.width;
 			switch (pointType) {
 				case "begin":
-					// bufferCtx.moveTo((data[0] * xs) >> 0, (data[1] * ys) >> 0);
 					break;
 				case "join":
 					bufferCtx.fillStyle = color;

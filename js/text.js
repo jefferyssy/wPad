@@ -62,7 +62,6 @@
 				start_Y = _data[1];
 			var _input = document.getElementsByTagName('input')[0];
 
-			// bufferCanvas.width = bufferCanvas.width;
 			switch (pointType) {
 				case "begin":
 					x = start_X,
@@ -81,8 +80,6 @@
 				case "join":
 					break;
 				default:	
-					// params.draw.call(this, { item: this.item.name, pointType: "end",time: Date.now() });
-					// store.save(mainCanvas)
 			}
 			document.addEventListener('keyup', function (e) {
 				var key = e.keyCode || '';
