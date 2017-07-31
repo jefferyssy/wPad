@@ -26,11 +26,9 @@
 			wrap: document.body,
 			layout: "left-top-horizontal",
 			openLocalCache: true,
-			// toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "floodfill", "eyedropper", "text","import", "export", "clear", "undo", "color", "save"],
 			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "brush", "eyedropper", "text", "import", "export", "clear", "undo", "color", "save"],
 			done: function () { }
 		},
-		// titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", floodfill: "填充", eyedropper: "取色工具", text: "文本", import: "插入图片", export: "导出", clear: "清空", undo: "撤销", color: "颜色", save: "保存" };
 		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", brush: "笔刷", eyedropper: "取色工具", text: "文本", import: "插入图片", export: "导出", clear: "清空", undo: "撤销", color: "颜色", save: "保存" };
 
 	vm.module = vm.module || {};
@@ -82,11 +80,9 @@
 			var self = this,
 				mainCanvas = this.getMainCanvas(),
 				mainCtx = mainCanvas.getContext("2d");
-			// mainCanvas.width = mainCanvas.width;
 			trackCache[self.name] = [];
 			store.undoList = [];
 			ls.removeItem('storeList');
-			// mainCtx.fillStyle = "#fff";
 			mainCtx.clearRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
 		}
 	};
@@ -139,8 +135,6 @@
 			bufferCanvas = wrap.getElementsByClassName("buffer-can")[0],
 			mainCtx = mainCanvas.getContext("2d");
 
-		// mainCtx.fillStyle = "#fff";
-		// mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
 		//笔刷添加钩子
 		document.querySelector('[item=brush]').parentNode.setAttribute('data-type', 'J_brush');
 		var Dom = document.querySelector('[data-type=J_brush]'),
@@ -240,13 +234,7 @@
 			mainCanvas.setAttribute("item", tool.name);
 		}
 
-		// var _trackCache = JSON.parse(ls.getItem(self.name) || "[]");
-		// trackCache[self.name] = _trackCache;
-		// var i = 0, len = _trackCache.length;
-		// do {
-		// 	var data = _trackCache[i];
-		// 	data && self.draw(data, true);
-		// } while (++i < len);
+		//从storage获取数据渲染页面
 		var _storeList = [], tmp;
 		if (ls.getItem('storeList')) {
 			tmp = ls.getItem('storeList').split('|');
@@ -291,24 +279,24 @@
 		}
 	}
 
-	function handleData(data, self) {
-		var pad = data.pad1;
-		if (pad.length) {
-			reCache.push(pad.pop());
-			var mainCanvas = self.getMainCanvas(),
-				mainCtx = mainCanvas.getContext("2d");
-			mainCanvas.width = mainCanvas.width;
-			mainCtx.fillStyle = "#fff";
-			mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
-			if (pad.length) {
-				pad.map(function (item, index) {
-					var name = self.getModule(item.item.toLowerCase());
-					name.draw.call(self, item)
-				});
-			}
+	// function handleData(data, self) {
+	// 	var pad = data.pad1;
+	// 	if (pad.length) {
+	// 		reCache.push(pad.pop());
+	// 		var mainCanvas = self.getMainCanvas(),
+	// 			mainCtx = mainCanvas.getContext("2d");
+	// 		mainCanvas.width = mainCanvas.width;
+	// 		mainCtx.fillStyle = "#fff";
+	// 		mainCtx.fillRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
+	// 		if (pad.length) {
+	// 			pad.map(function (item, index) {
+	// 				var name = self.getModule(item.item.toLowerCase());
+	// 				name.draw.call(self, item)
+	// 			});
+	// 		}
 
-		}
-	}
+	// 	}
+	// }
 
 	//关闭tab时 保存数据
 	addEvent(window, "beforeunload", function () {
@@ -319,8 +307,5 @@
 			});
 			ls.setItem('storeList', str);
 		}
-		// for (var padName in trackCache) {
-		// 	ls.setItem(padName, JSON.stringify(trackCache[padName]));
-		// }
 	});
 }());
