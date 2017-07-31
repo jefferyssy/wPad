@@ -84,6 +84,8 @@
 				mainCtx = mainCanvas.getContext("2d");
 			// mainCanvas.width = mainCanvas.width;
 			trackCache[self.name] = [];
+			store.undoList = [];
+			ls.removeItem('storeList');
 			// mainCtx.fillStyle = "#fff";
 			mainCtx.clearRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
 		}
@@ -153,7 +155,7 @@
 			ulDom.setAttribute('class', 'none');
 		};
 		var liDom = document.querySelector('[data-type=J_brush] .brush-list').children;
-		for(var i=0;i<liDom.length;i++){
+		for (var i = 0; i < liDom.length; i++) {
 			liDom[i].onclick = function (e) {
 				var brushWidth = this.innerText;
 				document.querySelector('#brushWidth').value = brushWidth;
@@ -238,13 +240,24 @@
 			mainCanvas.setAttribute("item", tool.name);
 		}
 
-		var _trackCache = JSON.parse(ls.getItem(self.name) || "[]");
-		trackCache[self.name] = _trackCache;
-		var i = 0, len = _trackCache.length;
-		do {
-			var data = _trackCache[i];
-			data && self.draw(data, true);
-		} while (++i < len);
+		// var _trackCache = JSON.parse(ls.getItem(self.name) || "[]");
+		// trackCache[self.name] = _trackCache;
+		// var i = 0, len = _trackCache.length;
+		// do {
+		// 	var data = _trackCache[i];
+		// 	data && self.draw(data, true);
+		// } while (++i < len);
+		var _storeList = [], tmp;
+		if (ls.getItem('storeList')) {
+			tmp = ls.getItem('storeList').split('|');
+			tmp.map(function (item, index) {
+				if (item) {
+					_storeList.push(JSON.parse(item));
+				}
+			});
+			store.undoList = _storeList;
+			store.init(mainCanvas.getContext('2d'), self);
+		}
 	}
 
 	function copy(copyData, receiveData) {
@@ -297,9 +310,17 @@
 		}
 	}
 
+	//关闭tab时 保存数据
 	addEvent(window, "beforeunload", function () {
-		for (var padName in trackCache) {
-			ls.setItem(padName, JSON.stringify(trackCache[padName]));
+		if (store.undoList.length) {
+			var str = '';
+			store.undoList.map(function (item, index) {
+				str += JSON.stringify(item) + '|';
+			});
+			ls.setItem('storeList', str);
 		}
+		// for (var padName in trackCache) {
+		// 	ls.setItem(padName, JSON.stringify(trackCache[padName]));
+		// }
 	});
 }());
