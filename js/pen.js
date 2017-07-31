@@ -68,6 +68,7 @@
             params.draw.call(this, { item: this.item.name, color:color, pointType: "end", data: [x, y], width: mainCanvas.width, height: mainCanvas.height, time: Date.now() });
             ctx.closePath();
             ctx.save();
+            store.save(mainCanvas);
         },
         draw: function (param) {
             var pointType = param.pointType,
@@ -95,6 +96,7 @@
                 default:
                     ctx.closePath();
                     ctx.save();
+                    console.log(33333333);
                     store.save(mainCanvas);
             }
         }
