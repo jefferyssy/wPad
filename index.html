@@ -53,6 +53,7 @@ var socket = io('http://10.5.235.23:3000/');
 		openLocalBuffer: true,
 		layout: "left-top-horizontal",
 		draw: function(data) {
+			pad1.draw(data);
 		},
 		clear: function() {
 			// pad2.clear();

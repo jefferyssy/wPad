@@ -17,8 +17,6 @@
 	Import.prototype = {
 		constructor: Import,
 		import: function () {
-			var mainCanvas = document.querySelector('#pad2 .main-can'),
-				mainCtx = mainCanvas.getContext("2d");
 			var mainCanvas1 = document.querySelector('#pad1 .main-can'),
 				mainCtx1 = mainCanvas1.getContext("2d");
 			var inputOne = document.getElementById('fileOne');
@@ -35,12 +33,9 @@
 					var img = new Image();
 					img.onload = function () {
 						mainCtx1.globalCompositeOperation="destination-over";
-						mainCtx.globalCompositeOperation="destination-over";
-						mainCtx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
 						mainCtx1.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
 						store.save(mainCanvas1);
 						mainCtx1.globalCompositeOperation="source-over";
-						mainCtx.globalCompositeOperation="source-over";
 						
 					}
 					img.src = reader.result;

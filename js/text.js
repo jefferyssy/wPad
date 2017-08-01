@@ -94,9 +94,6 @@
 				document.getElementsByClassName('main-can')[0].getContext("2d").font = "12px serif";
 				document.getElementsByClassName('main-can')[0].getContext("2d").fillStyle  = color;
 				document.getElementsByClassName('main-can')[0].getContext("2d").fillText(text, x, y);
-				document.getElementsByClassName('main-can')[1].getContext("2d").font = "12px serif";
-				document.getElementsByClassName('main-can')[1].getContext("2d").fillStyle  = color;
-				document.getElementsByClassName('main-can')[1].getContext("2d").fillText(text, x, y);
 				document.getElementById('panInput').value = '';
 				document.getElementsByTagName('input')[0].style.top = '-10000px';
 				document.getElementsByTagName('input')[0].style.left = '-10000px';
