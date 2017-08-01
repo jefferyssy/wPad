@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>whiteboard</title>
-	 <link rel="stylesheet" type="text/css" href="./css/wPad.css">
+	<link rel="stylesheet" type="text/css" href="./css/wPad.css">
+	<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js'></script>
 	<!--<link rel="stylesheet" type="text/css" href="./dist/css/wPad.min.css">-->
 </head>
 <body>
@@ -44,13 +45,14 @@
 <script type="text/javascript" src="./js/brush.js"></script>
 <script type="text/javascript" src="./js/index.js"></script> 
 <script type="text/javascript">
+var socket = io('http://10.5.235.23:3000/');
+
 	var params1 = {
 		name: "pad1",
 		wrap: document.getElementById("pad1"),
 		openLocalBuffer: true,
 		layout: "left-top-horizontal",
 		draw: function(data) {
-			// pad2.draw(data);
 		},
 		clear: function() {
 			// pad2.clear();
@@ -58,20 +60,21 @@
 		done: function() {}
 	};
 
-	var params2 = {
-		name: "pad2",
-		wrap: document.getElementById("pad2"),
-		layout: "left-top-horizontal",
-		openLocalBuffer: true,
-		/*toolbars: ["pen"],*/
-		draw: function(data) {
-			pad1.draw(data);
-		},
-		clear: function() {},
-		done: function() {}
-	};
+	// var params2 = {
+	// 	name: "pad2",
+	// 	wrap: document.getElementById("pad2"),
+	// 	layout: "left-top-horizontal",
+	// 	openLocalBuffer: true,
+	// 	/*toolbars: ["pen"],*/
+	// 	draw: function(data) {
+	// 		pad1.draw(data);
+	// 	},
+	// 	clear: function() {},
+	// 	done: function() {}
+	// };
 
 	var pad1 = wPad.init(params1);
 	// var pad2 = wPad.init(params2);
+	
 </script>
 </html>

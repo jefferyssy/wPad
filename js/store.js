@@ -10,6 +10,8 @@ var store = {
             this.undoList.push(this.itemObj);
             this.itemObj = {};
         }
+        var data = this.undoList;
+        socket.emit('send',data);
     },
     undo: function (ctx, self) {
         this.changeStatus(ctx, self);
@@ -39,6 +41,8 @@ var store = {
                 ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
                 ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height, 0, 0, mainCanvas.width, mainCanvas.height);
             }
+        }else{
+            ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
         }
     },
     changeStatus: function (ctx, e) {
@@ -54,8 +58,8 @@ var store = {
                 ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
                 ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height, 0, 0, mainCanvas.width, mainCanvas.height);
             }
-        }
-
+        };
+        socket.emit('send',this.undoList);
     },
     handleData: function () {
         var imgSrc = '', picArr = this.undoList;
@@ -76,6 +80,10 @@ var store = {
         };
         picArr.reverse();
         return imgSrc;
+    },
+    clear:function(){
+        this.undoList = [];
+        socket.emit('send',this.undoList);
     },
     redoStatus: function (ctx) {
         if (this.redoList.length) {

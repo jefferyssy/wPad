@@ -76,6 +76,12 @@
 				!isCache && "end" === data.pointType.toLowerCase() && trackCache[self.name].push(data);
 			}
 		},
+		show:function(data){
+			var self = this,
+				mainCanvas = this.getMainCanvas();
+			store.undoList = data;
+			store.init(mainCanvas.getContext('2d'), self);
+		},
 		clear: function () {
 			var self = this,
 				mainCanvas = this.getMainCanvas(),
@@ -84,6 +90,7 @@
 			store.undoList = [];
 			ls.removeItem('storeList');
 			mainCtx.clearRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
+			store.clear();
 		}
 	};
 
