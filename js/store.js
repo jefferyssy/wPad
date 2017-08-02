@@ -11,7 +11,7 @@ var store = {
             this.itemObj = {};
         }
         var data = this.undoList;
-        socket.emit('send',data);
+        socket.emit('send', data);
     },
     undo: function (ctx, self) {
         this.changeStatus(ctx, self);
@@ -25,23 +25,25 @@ var store = {
         if (len) {
             var imgSrc = '';
             this.undoList.reverse();
-            for(var i = 0;i<len;i++){
-                if(this.undoList[i]['show'] === true && imgSrc === ''){
+            for (var i = 0; i < len; i++) {
+                if (this.undoList[i]['show'] === true && imgSrc === '') {
                     imgSrc = this.undoList[i]['data'];
                     break;
                 }
             }
-            if (imgSrc === '') {
-                imgSrc = this.undoList[this.undoList.length - 1].data;
-            }
-            var img = document.createElement('img');
-             this.undoList.reverse();
-            img.setAttribute('src', imgSrc);
-            img.onload = function () {
+            if (imgSrc !== '') {
+                var img = document.createElement('img');
+                this.undoList.reverse();
+                img.setAttribute('src', imgSrc);
+                img.onload = function () {
+                    ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+                    ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height, 0, 0, mainCanvas.width, mainCanvas.height);
+                }
+            }else{
                 ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
-                ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height, 0, 0, mainCanvas.width, mainCanvas.height);
             }
-        }else{
+
+        } else {
             ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
         }
     },
@@ -51,15 +53,18 @@ var store = {
         if (self.undoList.length) {
             //处理数据
             var imgSrc = self.handleData();
-
-            var img = document.createElement('img');
-            img.setAttribute('src', imgSrc);
-            img.onload = function () {
+            if (imgSrc !== '') {
+                var img = document.createElement('img');
+                img.setAttribute('src', imgSrc);
+                img.onload = function () {
+                    ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+                    ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height, 0, 0, mainCanvas.width, mainCanvas.height);
+                }
+            } else {
                 ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
-                ctx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height, 0, 0, mainCanvas.width, mainCanvas.height);
             }
         };
-        socket.emit('send',this.undoList);
+        socket.emit('send', this.undoList);
     },
     handleData: function () {
         var imgSrc = '', picArr = this.undoList;
@@ -71,19 +76,16 @@ var store = {
             }
         };
         picArr.map(function (item, index) {
-            if(item['show'] === true && imgSrc === ''){
+            if (item['show'] === true && imgSrc === '') {
                 imgSrc = item['data'];
             }
         });
-        if(imgSrc === ''){
-            imgSrc = picArr[0]['data'];
-        };
         picArr.reverse();
         return imgSrc;
     },
-    clear:function(){
+    clear: function () {
         this.undoList = [];
-        socket.emit('send',this.undoList);
+        socket.emit('send', this.undoList);
     },
     redoStatus: function (ctx) {
         if (this.redoList.length) {

@@ -74,6 +74,7 @@
 				bufferCtx.moveTo((data[0]*xs)>>0, (data[1]*ys)>>0);
 				break;
 			case "join":
+				bufferCtx.strokeStyle = color;
 				bufferCtx.moveTo((data[0][0]*xs)>>0, (data[0][1]*ys)>>0);
 				bufferCtx.lineTo((data[1][0]*xs)>>0, (data[1][1]*ys)>>0);
 				bufferCtx.stroke();

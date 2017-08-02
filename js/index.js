@@ -91,6 +91,9 @@
 			ls.removeItem('storeList');
 			mainCtx.clearRect(0, 0, mainCanvas.clientWidth, mainCanvas.clientHeight);
 			store.clear();
+			document.querySelector('#panInput').value = '';
+			document.querySelector('#panColor').value = '#000000';
+			document.querySelector('#brushWidth').value = '10';
 		}
 	};
 
@@ -164,7 +167,6 @@
 			};
 		}
 
-		store.save(mainCanvas);
 		addEvent(mainCanvas, "mousedown", function () {
 			self.item.mousedown && self.item.mousedown.apply(self, [].slice.call(arguments, 0));
 		});
@@ -213,6 +215,9 @@
 							tool.import.call(self);
 							break;
 						case "floodfill":
+							self.item = tool;
+							break;
+						case "text":
 							self.item = tool;
 							break;
 						default:

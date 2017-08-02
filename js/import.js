@@ -17,8 +17,10 @@
 	Import.prototype = {
 		constructor: Import,
 		import: function () {
-			var mainCanvas1 = document.querySelector('#pad1 .main-can'),
-				mainCtx1 = mainCanvas1.getContext("2d");
+			var mainCanvas = this.getMainCanvas(),
+				bufferCanvas = this.getBufferCanvas(),
+				mainCtx = mainCanvas.getContext("2d"),
+				bufferCtx = bufferCanvas.getContext("2d");
 			var inputOne = document.getElementById('fileOne');
 			inputOne.click();
 			inputOne.onchange = function () {
@@ -32,11 +34,10 @@
 					//将结果显示到canvas
 					var img = new Image();
 					img.onload = function () {
-						mainCtx1.globalCompositeOperation="destination-over";
-						mainCtx1.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
-						store.save(mainCanvas1);
-						mainCtx1.globalCompositeOperation="source-over";
-						
+						mainCtx.globalCompositeOperation="destination-over";
+						mainCtx.drawImage(img, 0, 0, mainCanvas.width, mainCanvas.height);
+						store.save(mainCanvas);
+						mainCtx.globalCompositeOperation="source-over";
 					}
 					img.src = reader.result;
 				}
