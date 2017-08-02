@@ -82,7 +82,6 @@
 					mainCtx.beginPath();
 					mainCtx.arc(end_X - (end_X - start_X) / 2, end_Y - (end_Y - start_Y) / 2, Math.sqrt((Math.pow((end_X - start_X), 2) + Math.pow((end_Y - start_Y), 2))) / 2, 0, Math.PI * 2, true);
 					mainCtx.closePath();
-					mainCtx.stroke();
 					mainCtx.fillStyle = color;
     				mainCtx.fill();	
 					store.save(mainCanvas)
