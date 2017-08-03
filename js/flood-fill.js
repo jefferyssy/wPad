@@ -10,9 +10,10 @@
 ; (function () {
 	var listItem = [], lists = [];
 	window._stack = [];//堆栈
-	var xLeft , xRight;
+	var xLeft, xRight;
 	var originPiex = {};
-	var startX , startY;
+	var startX, startY, mainCanvas;
+	var color = '',hexColor = '';
 
 	window.floodFill = {
 		getPiex: function (canvas, ctx) {
@@ -34,70 +35,98 @@
 				index: position
 			};
 		},
-		fillRect:function(ctx,x,y){
+		canuse: function (x, y) {
+			if (x <= 10 || y <= 30 || x >= mainCanvas.width - 10 || y >= mainCanvas.height - 10) {
+				return false;
+			}
+			var target = this.piexColor(x, y);
+			// if (!target.color || target.color.toString() == '0,0,0,255' || target.color.toString() == hexColor.toString()) {
+			if (!target.color || target.color.toString() !== '0,0,0,0' || target.color.toString() == hexColor.toString()) {
+				return false;
+			}
+			return true;
+
+		},
+		addColor: function (ctx, x, y) {
 			ctx.restore();
-			ctx.fillStyle = '#dc143c';
+			ctx.fillStyle = color;
 			ctx.fillRect(x, y, 1, 1);
+			var position = 1000 * (y - 1) + x;
+			hexColor = this.hexToRgb(color).push('255');
+			lists[position] = hexColor;
 		},
-		fillToLeft:function(ctx,x,y){
-			var target = this.piexColor(x,y);
-			if(target.color.toString() !== '0,0,0,255'){
-				this.fillRect(ctx,x,y);
-				x--;
-				this.fillToLeft(ctx,x,y);
-			}else{
-				xLeft = x + 1;
+		rgbToHex: function (rgb) {
+			var color = rgb.toString().match(/\d+/g);
+			var hex = "#";
+
+			for (var i = 0; i < 3; i++) {
+				hex += ("0" + Number(color[i]).toString(16)).slice(-2);
 			}
-			return xLeft;
+			return hex;
 		},
-		fillToRight:function(ctx,x,y){
-			var target = this.piexColor(x,y);
-			if(target.color.toString() !== '0,0,0,255'){
-				this.fillRect(ctx,x,y);
-				x++;
-				this.fillToRight(ctx,x,y);
-			}else{
-				xRight = x - 1;
+		hexToRgb: function (hex) {
+			color = color.toUpperCase();
+			　　var regexpHex = /^#[0-9a-fA-F]{3,6}$/;//Hex  
+			　　if (regexpHex.test(color)) {
+				　　　　var hexArray = new Array();
+				　　　　var count = 1;
+				　　　　for (var i = 1; i <= 3; i++) {
+					　　　　　　if (color.length - 2 * i > 3 - i) {
+						　　　　　　　　hexArray.push(Number("0x" + color.substring(count, count + 2)));
+						　　　　　　　　count += 2;
+					　　　　　　} else {
+						　　　　　　　　hexArray.push(Number("0x" + color.charAt(count) + color.charAt(count)));
+						　　　　　　　　count += 1;
+					　　　　　　}
+				　　　　}
+				　　　　return hexArray;
+			　　} else {
+				　　　　return color;
+			　　}
+		},
+		fillRect: function (ctx, x, y) {
+			var self = this;
+			if (!self.canuse(x, y)) {
+				return false;
 			}
-			return xRight;
-		},
-		getStackPiex:function(xLeft,xRight,y){
-			var i = xLeft;
-			while(i<=xRight && _stack.length == 0){
-			// while(i<=xRight){
-				var target = this.piexColor(i,y);
-				if(target.color.toString() == '0,0,0,255'){
-					i++;
-				}else{
-					originPiex = {};
-					originPiex['x'] = i;
-					originPiex['y'] = y;
-					_stack.push(originPiex);
+			self.addColor(ctx, x, y);
+
+			return [
+				function () {
+					return self.fillRect(ctx, x + 1, y);
+				},
+				function () {
+					return self.fillRect(ctx, x - 1, y);
+				},
+				function () {
+					return self.fillRect(ctx, x, y + 1);
+				},
+				function () {
+					return self.fillRect(ctx, x, y - 1);
 				}
-			}
+			];
 		},
-		fillShap:function(ctx){
-			while(_stack.length != 0){
-				var x = _stack[0].x,y = _stack[0].y;
-				_stack.pop();
-				xLeft = this.fillToLeft(ctx,x,y);
-				xRight = this.fillToRight(ctx,x,y);
-			
-				this.getStackPiex(xLeft,xRight,y - 1);
+
+		fillShap: function (canvas,ctx) {
+			var arr = [];
+			var value = this.fillRect(ctx, originPiex.x, originPiex.y);
+			if (value) {
+				arr.push.apply(arr, value);
 			}
-			if(_stack.length == 0){
-				originPiex = {};
-				originPiex['x'] = startX;
-				originPiex['y'] = startY;
-				_stack.push(originPiex);
-				while(_stack.length != 0){
-					var x = _stack[0].x,y = _stack[0].y;
-					_stack.pop();
-					xLeft = this.fillToLeft(ctx,x,y);
-					xRight = this.fillToRight(ctx,x,y);
-					this.getStackPiex(xLeft,xRight,y + 1);
+
+			var len = arr.length;
+			while (len != 0) {
+				var fn = arr[0]();
+				if (fn) {
+					arr.push(fn[0]);
+					arr.push(fn[1]);
+					arr.push(fn[2]);
+					arr.push(fn[3]);
 				}
+				arr.shift();
+				len = arr.length;
 			}
+			store.save(canvas);
 		}
 	};
 
@@ -110,13 +139,15 @@
 	FloodFill.prototype = {
 		constructor: FloodFill,
 		mousedown: function () {
+			mainCanvas = this.getMainCanvas();
 			var e = arguments[0] || window.event,
-				mainCanvas = this.getMainCanvas(),
 				canvasCtx = mainCanvas.getContext('2d'),
 				rect = mainCanvas.getBoundingClientRect();
 			rect.top = rect.top + window.scrollY;
 			rect.left = rect.left + window.scrollX;
 			var x = e.clientX - rect.left, y = e.clientY - rect.top;
+			color = document.querySelector('#panColor').value;
+			hexColor = floodFill.hexToRgb(color).push('255');
 			startX = x;
 			startY = y;
 			originPiex = {};
@@ -124,7 +155,7 @@
 			originPiex['y'] = y;
 			_stack.push(originPiex);
 			floodFill.getPiex(mainCanvas, canvasCtx);
-			floodFill.fillShap(canvasCtx)
+			floodFill.fillShap(mainCanvas,canvasCtx)
 		}
 	};
 

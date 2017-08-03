@@ -96,7 +96,6 @@
                 default:
                     ctx.closePath();
                     ctx.save();
-                    console.log(33333333);
                     store.save(mainCanvas);
             }
         }

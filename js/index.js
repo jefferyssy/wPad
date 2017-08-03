@@ -26,10 +26,10 @@
 			wrap: document.body,
 			layout: "left-top-horizontal",
 			openLocalCache: true,
-			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "brush", "eyedropper", "text", "import", "export", "clear", "undo", "color", "save"],
+			toolbars: ["line", "arrow", "pen", "circle", "ellipes", "circlestroke", "ellipesstroke", "rect", "rectstroke", "eraser", "brush", "floodfill","eyedropper", "text", "import", "export", "clear", "undo", "color", "save"],
 			done: function () { }
 		},
-		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", brush: "笔刷", eyedropper: "取色工具", text: "文本", import: "插入图片", export: "导出", clear: "清空", undo: "撤销", color: "颜色", save: "保存" };
+		titles = { line: "直线", arrow: "箭头", pen: "画笔", circle: "实心圆", ellipes: "实心椭圆", circlestroke: "空心圆", ellipesstroke: "空心椭圆", rect: "实心矩形", rectstroke: "空心矩形", eraser: "橡皮擦", brush: "笔刷", floodfill: "填充",eyedropper: "取色工具", text: "文本", import: "插入图片", export: "导出", clear: "清空", undo: "撤销", color: "颜色", save: "保存" };
 
 	vm.module = vm.module || {};
 	window.vm = vm;
@@ -76,12 +76,21 @@
 				!isCache && "end" === data.pointType.toLowerCase() && trackCache[self.name].push(data);
 			}
 		},
+		/**
+		 * 暴露接口，接受数据渲染画板
+		 * 
+		 * @param {any} data 
+		 */
 		show:function(data){
 			var self = this,
 				mainCanvas = this.getMainCanvas();
 			store.undoList = data;
 			store.init(mainCanvas.getContext('2d'), self);
 		},
+		/**
+		 * 画板清空函数
+		 * 
+		 */
 		clear: function () {
 			var self = this,
 				mainCanvas = this.getMainCanvas(),
@@ -201,7 +210,6 @@
 							break;
 						case "undo":
 							store.undo(mainCanvas.getContext('2d'), self);
-							// handleData(trackCache, self);
 							break;
 						case "color":
 							var colorDom = document.querySelector('#panColor');
@@ -290,7 +298,13 @@
 			}
 		}
 	}
-
+	
+	/**
+	 * 对象形式保存数据
+	 * 
+	 * @param {any} data 
+	 * @param {any} self 
+	 */
 	// function handleData(data, self) {
 	// 	var pad = data.pad1;
 	// 	if (pad.length) {

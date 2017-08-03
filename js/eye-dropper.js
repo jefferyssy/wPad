@@ -45,58 +45,6 @@
 		}
 		return hex;
 	};
-	function isSelect(x, y, data) {
-		if (data && data.length) {
-			data.map(function (item, index) {
-				var key = item.item;
-				var param = item.data;
-				switch (key) {
-					case 'Circle':
-						var circleX = param[1][0] - (param[1][0] - param[0][0]) / 2;
-						var circleY = param[1][1] - (param[1][1] - param[0][1]) / 2;
-						var circleR = Math.sqrt((Math.pow((param[1][0] - param[0][0]), 2) + Math.pow((param[1][1] - param[0][1]), 2))) / 2;
-						var len = Math.sqrt((Math.pow((x - circleX), 2) + Math.pow((y - circleY), 2))) / 2;
-						if (len < circleR) {
-							document.querySelector('#panColor').value = item.color;
-						}
-						break;
-					case 'Rect':
-						var startX = param[0][0];
-						var startY = param[0][1];
-						var endX = param[1][0];
-						var endY = param[1][1];
-						var w = Math.abs(startX - endX);
-						var h = Math.abs(startY - endY);
-						if (x > startX && x < startX + w && y > startY && y < startY + h) {
-							document.querySelector('#panColor').value = item.color;
-						}
-						break;
-					case 'Ellipes':
-						var startX = param[0][0];
-						var startY = param[0][1];
-						var endX = param[1][0];
-						var endY = param[1][1];
-						var a = Math.abs(endX - startX) * 2;
-						var b = Math.abs(endY - startY) * 2;
-						var deltaX = x - startX;
-						var deltaY = y - startY;
-						if ((deltaX * deltaX) / (a * a) + (deltaY * deltaY) / (b * b) < 1) {
-							document.querySelector('#panColor').value = item.color;
-						}
-						break;
-					default:
-						var result = piexColor(x, y);
-						result.color.pop()
-						//TODO rgba值需要转换
-						document.querySelector('#panColor').value = rgbToHex(result.color.toString());
-				}
-			});
-		} else {
-			var result = piexColor(x, y);
-			result.color.pop()
-			document.querySelector('#panColor').value = rgbToHex(result.color.toString());
-		}
-	}
 	EyeDropper.prototype = {
 		constructor: EyeDropper,
 		mousedown: function () {
@@ -110,10 +58,8 @@
 			var x = e.clientX - rect.left, y = e.clientY - rect.top;
 			var data = this.getCache();
 			getPiex(mainCtx, mainCanvas);
-			// isSelect(x, y, data);
 			var result = piexColor(x, y);
-			result.color.pop()
-			console.log(result.color.toString());
+			result.color.pop();
 			document.querySelector('#panColor').value = rgbToHex(result.color.toString());
 		}
 	};

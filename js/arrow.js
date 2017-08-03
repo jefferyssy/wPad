@@ -76,7 +76,6 @@
 					break;
 				default:
 					drawArrow(mainCtx,start_X,start_Y,end_X,end_Y,3,color);
-					console.log(123123123);
 					store.save(mainCanvas)
 			}
 

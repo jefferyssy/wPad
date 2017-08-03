@@ -3,6 +3,11 @@ var store = {
     undoList: [],
     redoList: [],
     itemObj: {},
+    /**
+     * 保存绘画过程
+     * 
+     * @param {any} canvas 
+     */
     save: function (canvas) {
         if (this.undoList.length === 0 || (this.undoList[this.undoList.length - 1]['data'] != canvas.toDataURL())) {
             this.itemObj['show'] = true;
@@ -13,12 +18,29 @@ var store = {
         var data = this.undoList;
         socket.emit('send', data);
     },
+    /**
+     * 撤销方法
+     * 
+     * @param {any} ctx 
+     * @param {any} self 
+     */
     undo: function (ctx, self) {
         this.changeStatus(ctx, self);
     },
+    /**
+     * 反撤销方法
+     * 
+     * @param {any} ctx 
+     */
     redo: function (ctx) {
         this.redoStatus(ctx);
     },
+    /**
+     * 画板初始化渲染
+     * 
+     * @param {any} ctx 
+     * @param {any} self 
+     */
     init: function (ctx, self) {
         var mainCanvas = self.getMainCanvas();
         var len = this.undoList.length;
@@ -47,12 +69,19 @@ var store = {
             ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
         }
     },
+    /**
+     * 撤销后渲染画板
+     * 
+     * @param {any} ctx 
+     * @param {any} e 
+     */
     changeStatus: function (ctx, e) {
         var self = this;
         var mainCanvas = e.getMainCanvas();
         if (self.undoList.length) {
             //处理数据
             var imgSrc = self.handleData();
+            //当所有图层都撤销时，清空画板并显示
             if (imgSrc !== '') {
                 var img = document.createElement('img');
                 img.setAttribute('src', imgSrc);
@@ -66,15 +95,22 @@ var store = {
         };
         socket.emit('send', this.undoList);
     },
+    /**
+     * 处理撤销数据，返回显示图层
+     * 
+     * @returns 
+     */
     handleData: function () {
         var imgSrc = '', picArr = this.undoList;
         picArr.reverse();//翻转数组
+        //撤销当前图层
         for (var i = 0; i < picArr.length; i++) {
             if (picArr[i]['show'] === true) {
                 picArr[i]['show'] = false;
                 break;
             }
         };
+        //遍历获取下一个图层
         picArr.map(function (item, index) {
             if (item['show'] === true && imgSrc === '') {
                 imgSrc = item['data'];
@@ -83,10 +119,19 @@ var store = {
         picArr.reverse();
         return imgSrc;
     },
+    /**
+     * 清空画板
+     * 
+     */
     clear: function () {
         this.undoList = [];
         socket.emit('send', this.undoList);
     },
+    /**
+     * 反撤销数据处理
+     * 
+     * @param {any} ctx 
+     */
     redoStatus: function (ctx) {
         if (this.redoList.length) {
             var img = document.createElement('img');
